@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-09-25T13:35:08.745278",
+  "source_files_count": 2,
+  "unique_files_count": 1,
+  "duplicate_files_count": 1,
+  "duplicate_files": [
+    {
+      "file_name": "test_capture_1_copy.json",
+      "sha256": "aa51bf1101e1fb109a46d83ed6ee01dde935e5728f296ba8feefde25eb982c78",
+      "identical_to": "test_capture_1.json"
+    }
+  ],
+  "total_captures": 1,
+  "observation_count": 2,
+  "unique_listing_count": 2,
+  "repeat_observations": 0,
+  "unique_media_count": 1,
+  "total_media_references": 1,
+  "media_availability": {
+    "listings_with_media": 1,
+    "listings_with_media_pct": 50.0,
+    "listings_without_media": 1,
+    "listings_without_media_pct": 50.0
+  },
+  "missing_data_rates": {
+    "missing_title_count": 0,
+    "missing_title_pct": 0.0,
+    "missing_price_count": 0,
+    "missing_price_pct": 0.0,
+    "missing_location_count": 0,
+    "missing_location_pct": 0.0,
+    "missing_description_pct": 100.0,
+    "missing_seller_profile_pct": 100.0
+  },
+  "badge_availability": {
+    "featured_count": 1,
+    "featured_pct": 50.0,
+    "verified_count": 0,
+    "verified_pct": 0.0,
+    "elite_count": 0,
+    "elite_pct": 0.0
+  },
+  "search_query_breakdown": {
+    "iphone": 2
+  },
+  "category_id_breakdown": {
+    "1453": 2
+  },
+  "geographic_coverage": {
+    "confidence_distribution": {
+      "high": 2
+    },
+    "top_states": {
+      "Karnataka": 1,
+      "Maharashtra": 1
+    },
+    "top_cities": {
+      "Bengaluru": 1,
+      "Mumbai": 1
+    }
+  },
+  "price_summary": {
+    "count": 2,
+    "min": 45000.0,
+    "max": 85000.0,
+    "median": 65000.0,
+    "mean": 65000.0
+  },
+  "parquet_files": {
+    "observations": "/var/folders/k9/kp5n9z6n51j_hkvh4ggcgll40000gn/T/tmpb7v02q08/processed/observations.parquet",
+    "listings": "/var/folders/k9/kp5n9z6n51j_hkvh4ggcgll40000gn/T/tmpb7v02q08/processed/listings.parquet",
+    "media": "/var/folders/k9/kp5n9z6n51j_hkvh4ggcgll40000gn/T/tmpb7v02q08/processed/media.parquet"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "source": "user_submission",
+  "source_listing_id": "SYN-DEMO-999",
+  "source_url": "https://example.com/demo/single-listing",
+  "title": "Apple iPhone 13 128GB Starlight with Charger",
+  "description": "Single listing demo. Clean phone, no issues. Battery health 86%.",
+  "category": "Smartphones",
+  "subcategory": "iPhone",
+  "brand": "Apple",
+  "model": "iPhone 13",
+  "price": "₹38,500",
+  "currency": "INR",
+  "condition": "good",
+  "location": "Indiranagar, Bangalore",
+  "posted_at": "2024-05-18T10:00:00Z",
+  "seller": {
+    "display_name": "Demo Seller",
+    "account_age": "1 year",
+    "phone": "+91 9876500000",
+    "email": "demo.seller@example.com"
+  },
+  "media": [
+    {
+      "media_type": "image",
+      "source_url": "https://images.unsplash.com/photo-1591337676887-a217a6970a8a"
+    }
+  ],
+  "synthetic": true
+}

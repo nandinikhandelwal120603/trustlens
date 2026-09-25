@@ -1,0 +1,825 @@
+[
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-IPH-001",
+    "source_url": "https://example.com/listings/iphone-15-pro-blue",
+    "title": "Apple iPhone 15 Pro 128GB Blue Titanium - 4 months old with Bill & Box",
+    "description": "Selling my pristine condition iPhone 15 Pro. 100% battery health, original USB-C braided cable, bill from Imagine store. Under AppleCare warranty till Oct 2024. No scratches, tempered glass applied since day 1.",
+    "category": "Smartphones",
+    "subcategory": "iPhone",
+    "brand": "Apple",
+    "model": "iPhone 15 Pro",
+    "price": "₹78,500",
+    "currency": "INR",
+    "condition": "Like New",
+    "location": "Indiranagar, Bangalore, Karnataka",
+    "posted_at": "2024-05-10T14:30:00Z",
+    "seller": {
+      "display_name": "Arjun M.",
+      "account_age": "2 years",
+      "profile_location": "Bangalore",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91 9876543210",
+      "email": "arjun.m@example.com"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1695048133142-1a20484d2569",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "extracted_claims": {
+      "bill_available": true,
+      "box_available": true,
+      "battery_health": 100
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-PS5-002",
+    "source_url": "https://example.com/listings/ps5-disc-edition",
+    "title": "Sony PlayStation 5 Disc Edition + 2 DualSense Controllers + Spider-Man 2",
+    "description": "Sony PS5 Disc console in flawless condition. Includes box, HDMI cable, power cord, 2 controllers, and physical game disc. Rarely played.",
+    "category": "Gaming",
+    "subcategory": "PlayStation",
+    "brand": "Sony",
+    "model": "PlayStation 5",
+    "price": "42k",
+    "currency": "INR",
+    "condition": "mint",
+    "location": "Bandra West, Mumbai, Maharashtra",
+    "posted_at": "2024-05-11T09:15:00Z",
+    "seller": {
+      "display_name": "Rohan Gamer",
+      "account_age": "5 months",
+      "profile_location": "Mumbai",
+      "verification_status": "unverified",
+      "seller_type": "individual",
+      "phone": "9820123456"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db",
+        "sha256": "5d41402abc4b2a76b9719d911017c592a2a229a43a84dfa1d8212ec9103c8c67"
+      }
+    ],
+    "extracted_claims": {
+      "extra_controllers": 2,
+      "games_included": ["Spider-Man 2"]
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-CAM-003",
+    "source_url": "https://example.com/listings/sony-a7iii-body",
+    "title": "Sony Alpha A7 III Full Frame Mirrorless Camera Body Only",
+    "description": "Shutter count around 14,500. Sensor clean, no fungus or dust. Used mostly for studio shoots. 2 original batteries and dual charger included.",
+    "category": "Cameras",
+    "subcategory": "Mirrorless",
+    "brand": "Sony",
+    "model": "Alpha A7 III",
+    "price": "Rs. 92,000",
+    "currency": "Rs",
+    "condition": "Good",
+    "location": "Koramangala, Bangalore",
+    "posted_at": "2024-05-08T18:00:00Z",
+    "seller": {
+      "display_name": "Priya Studio",
+      "account_age": "3 years",
+      "profile_location": "Bangalore",
+      "verification_status": "verified",
+      "seller_type": "business",
+      "business_name_claim": "Priya Photography Studio",
+      "phone": "+91 9988776655",
+      "email": "priya.photo@example.com"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32",
+        "sha256": "7d793037a0760186574b0282f2f435e7b1eef57713307e3d64d8258961733e08"
+      }
+    ],
+    "extracted_claims": {
+      "shutter_count": 14500
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-MAC-004",
+    "source_url": "https://example.com/listings/macbook-air-m2-midnight",
+    "title": "MacBook Air M2 13.6-inch 8GB/256GB Midnight Black with Apple Bill",
+    "description": "Urgent sale MacBook Air M2 chip. Battery cycle count only 38. Pristine body, zero dent. Selling because company provided a laptop.",
+    "category": "Laptops",
+    "subcategory": "MacBook",
+    "brand": "Apple",
+    "model": "MacBook Air M2",
+    "price": "INR 72,000",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Cyber City, Gurugram, Haryana",
+    "posted_at": "2024-05-12T11:45:00Z",
+    "seller": {
+      "display_name": "Karan Tech",
+      "account_age": "1 year",
+      "profile_location": "Gurugram",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91-9123456780"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+        "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+      }
+    ],
+    "extracted_claims": {
+      "battery_cycles": 38
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-GPU-005",
+    "source_url": "https://example.com/listings/rtx-4070-ti-super",
+    "title": "Zotac GeForce RTX 4070 Ti Super Trinity 16GB Graphics Card",
+    "description": "Brand new sealed box RTX 4070 Ti Super. Imported from US with manufacturer international warranty. Never opened or mined on.",
+    "category": "Gaming",
+    "subcategory": "GPU",
+    "brand": "Zotac",
+    "model": "RTX 4070 Ti Super",
+    "price": "68000",
+    "currency": "INR",
+    "condition": "seal pack",
+    "location": "Nehru Place, New Delhi",
+    "posted_at": "2024-05-13T16:20:00Z",
+    "seller": {
+      "display_name": "Hardware Hub Delhi",
+      "account_age": "4 years",
+      "profile_location": "Delhi",
+      "verification_status": "verified",
+      "seller_type": "business",
+      "business_name_claim": "Hardware Hub Pvt Ltd",
+      "gstin_claim": "07AAAAA0000A1Z5",
+      "phone": "9811122233",
+      "email": "sales@hardwarehub.example"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7",
+        "sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+      }
+    ],
+    "extracted_claims": {
+      "sealed": true,
+      "warranty": "International"
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-POD-006",
+    "source_url": "https://example.com/listings/airpods-pro-2-type-c",
+    "title": "Apple AirPods Pro (2nd Generation) with MagSafe Case USB-C",
+    "description": "Authentic AirPods Pro 2nd Gen USB-C port. Active noise cancellation and transparency mode working 100%. Selling with extra silicone tips and charging cable.",
+    "category": "Audio & Wearables",
+    "subcategory": "AirPods",
+    "brand": "Apple",
+    "model": "AirPods Pro 2",
+    "price": "₹14,500",
+    "currency": "INR",
+    "condition": "Good",
+    "location": "Anna Nagar, Chennai, Tamil Nadu",
+    "posted_at": "2024-05-09T08:00:00Z",
+    "seller": {
+      "display_name": "Deepak S.",
+      "account_age": "8 months",
+      "profile_location": "Chennai",
+      "seller_type": "individual",
+      "phone": "9444012345"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434",
+        "sha256": "bc5f22e84898ef4fc894672688cf862e391bb3a0d9b4b005e839e55767b45887"
+      }
+    ],
+    "extracted_claims": {
+      "anc_working": true
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-SAM-007",
+    "source_url": "https://example.com/listings/samsung-s23-ultra-512gb",
+    "title": "Samsung Galaxy S23 Ultra 5G 12GB/512GB Green with S-Pen",
+    "description": "1 year old Samsung flagship. No dents, camera lens protectors installed. Battery backup easily 1.5 days. Original box and cable provided.",
+    "category": "Smartphones",
+    "subcategory": "Samsung",
+    "brand": "Samsung",
+    "model": "Galaxy S23 Ultra",
+    "price": "65k",
+    "currency": "INR",
+    "condition": "used",
+    "location": "Gachibowli, Hyderabad, Telangana",
+    "posted_at": "2024-05-14T10:10:00Z",
+    "seller": {
+      "display_name": "Vikram V.",
+      "account_age": "2 years",
+      "profile_location": "Hyderabad",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91 9700011122"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c",
+        "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+      }
+    ],
+    "extracted_claims": {
+      "spen_present": true,
+      "ram_gb": 12,
+      "storage_gb": 512
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-NSW-008",
+    "source_url": "https://example.com/listings/nintendo-switch-oled-white",
+    "title": "Nintendo Switch OLED Model White Joy-Cons with Zelda & Mario Kart",
+    "description": "Nintendo switch OLED with dock, grip, straps, and 2 physical games. Screen protector on since day 1. Selling because not playing anymore.",
+    "category": "Gaming",
+    "subcategory": "Nintendo Switch",
+    "brand": "Nintendo",
+    "model": "Switch OLED",
+    "price": "₹22,000",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Aundh, Pune, Maharashtra",
+    "posted_at": "2024-05-07T12:00:00Z",
+    "seller": {
+      "display_name": "Nikhil Gamezone",
+      "account_age": "1.5 years",
+      "profile_location": "Pune",
+      "seller_type": "individual",
+      "phone": "9922001122"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9",
+        "sha256": "d41d8cd98f00b204e9800998ecf8427e00000000000000000000000000000001"
+      }
+    ],
+    "extracted_claims": {
+      "screen_protector": true
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-LEN-009",
+    "source_url": "https://example.com/listings/sigma-24-70-art-sony-e",
+    "title": "Sigma 24-70mm f/2.8 DG DN Art Lens for Sony E-Mount",
+    "description": "Sharp zoom lens for Sony full frame. Both caps, hood, and padded pouch included. Glass elements completely pristine.",
+    "category": "Cameras",
+    "subcategory": "Lens",
+    "brand": "Sigma",
+    "model": "24-70mm f/2.8 DG DN Art",
+    "price": "Rs. 64,500",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Park Street, Kolkata, West Bengal",
+    "posted_at": "2024-05-05T15:20:00Z",
+    "seller": {
+      "display_name": "Debanjan K.",
+      "account_age": "3 years",
+      "profile_location": "Kolkata",
+      "seller_type": "individual",
+      "email": "debanjan.lens@example.com"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1617005082133-548c4dd27f35",
+        "sha256": "a354b3c63a6f1d2482e0436d4f4ff7005c065f41ffbf3876e537d8a68eb63246"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-WIN-010",
+    "source_url": "https://example.com/listings/dell-xps-15-oled",
+    "title": "Dell XPS 15 9520 (Intel i7 12th Gen, 32GB RAM, 1TB SSD, 3.5K OLED Touch)",
+    "description": "Top-spec Dell XPS 15 workstation. 3.5K OLED touchscreen display, RTX 3050 Ti graphics, 32GB DDR5 RAM. Includes 130W USB-C fast charger.",
+    "category": "Laptops",
+    "subcategory": "Windows Laptop",
+    "brand": "Dell",
+    "model": "XPS 15 9520",
+    "price": "98000",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Whitefield, Bangalore",
+    "posted_at": "2024-05-15T17:00:00Z",
+    "seller": {
+      "display_name": "Siddharth Dev",
+      "account_age": "2.5 years",
+      "profile_location": "Bangalore",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91 9900112233"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45",
+        "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      }
+    ],
+    "extracted_claims": {
+      "touchscreen": true,
+      "ram_gb": 32,
+      "storage_gb": 1024
+    },
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-XBO-011",
+    "source_url": "https://example.com/listings/xbox-series-x-1tb",
+    "title": "Microsoft Xbox Series X 1TB Console with 2 Wireless Controllers",
+    "description": "Mint condition Xbox Series X console with ultra high-speed HDMI cable. Played casually on weekends. Box included.",
+    "category": "Gaming",
+    "subcategory": "Xbox",
+    "brand": "Microsoft",
+    "model": "Xbox Series X",
+    "price": "₹37,500",
+    "currency": "INR",
+    "condition": "mint",
+    "location": "Viman Nagar, Pune",
+    "posted_at": "2024-05-06T14:10:00Z",
+    "seller": {
+      "display_name": "Gaurav S.",
+      "account_age": "1 year",
+      "profile_location": "Pune",
+      "seller_type": "individual",
+      "phone": "9890012345"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1621259182978-fbf93132d53d",
+        "sha256": "02d9215f936a2f09b69b63b3615a1614f7941f17ac95244b998782a5bced772d"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-PIX-012",
+    "source_url": "https://example.com/listings/google-pixel-8-pro-obsidian",
+    "title": "Google Pixel 8 Pro 128GB Obsidian Black with Flipkart Invoice",
+    "description": "Purchased 6 months ago from Flipkart. Pristine condition with tempered glass and Spigen case. 7 years of Google software updates.",
+    "category": "Smartphones",
+    "subcategory": "Google Pixel",
+    "brand": "Google",
+    "model": "Pixel 8 Pro",
+    "price": "62k",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Sector 62, Noida, Uttar Pradesh",
+    "posted_at": "2024-05-16T13:40:00Z",
+    "seller": {
+      "display_name": "Aakash G.",
+      "account_age": "9 months",
+      "profile_location": "Noida",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91 9810098100"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1598327105666-5b89351aff97",
+        "sha256": "1e289c8a994efbe2f1da83eb14918e9505494cb60eb009f7a77e81254ff05952"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-WAT-013",
+    "source_url": "https://example.com/listings/apple-watch-ultra-2",
+    "title": "Apple Watch Ultra 2 Titanium Case with Orange Ocean Band",
+    "description": "Rugged Apple Watch Ultra 2 GPS + Cellular. Battery capacity 99%. Comes with original magnetic fast charger and retail packaging.",
+    "category": "Audio & Wearables",
+    "subcategory": "Smartwatch",
+    "brand": "Apple",
+    "model": "Watch Ultra 2",
+    "price": "₹59,000",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Jubilee Hills, Hyderabad",
+    "posted_at": "2024-05-17T11:20:00Z",
+    "seller": {
+      "display_name": "Rajesh Ultra",
+      "account_age": "4 years",
+      "profile_location": "Hyderabad",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "9849012345"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1",
+        "sha256": "43924f71a0be5349f7e34ef39674f4b4f73c52e463a02a0a2eb75b066bbbfad8"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-GOP-014",
+    "source_url": "https://example.com/listings/gopro-hero-12-black-creator",
+    "title": "GoPro HERO12 Black Action Camera Creator Edition",
+    "description": "Hero 12 action camera with Volta battery grip, Media Mod, Light Mod, and 3 Enduro batteries. Barely used on one Himachal trip.",
+    "category": "Cameras",
+    "subcategory": "Action Camera",
+    "brand": "GoPro",
+    "model": "HERO12 Black",
+    "price": "Rs 38,000",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "HSR Layout, Bangalore",
+    "posted_at": "2024-05-14T09:30:00Z",
+    "seller": {
+      "display_name": "Traveler Sunny",
+      "account_age": "2 years",
+      "profile_location": "Bangalore",
+      "seller_type": "individual",
+      "email": "sunny.travel@example.com"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1564466809058-bf4114d55352",
+        "sha256": "9b71d224bd62f3785d96d46ad3ea3d73319bf52874ce2347d12f673450e7150f"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-1PL-015",
+    "source_url": "https://example.com/listings/oneplus-12-flowy-emerald",
+    "title": "OnePlus 12 5G (16GB RAM + 512GB Storage) Flowy Emerald",
+    "description": "Snapdragon 8 Gen 3 flagship with 100W SUPERVOOC brick and cable. No scuffs, protective skin applied since day one.",
+    "category": "Smartphones",
+    "subcategory": "OnePlus",
+    "brand": "OnePlus",
+    "model": "OnePlus 12",
+    "price": "52k",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Ahmedabad, Gujarat",
+    "posted_at": "2024-05-15T15:00:00Z",
+    "seller": {
+      "display_name": "Bhavin P.",
+      "account_age": "3 years",
+      "profile_location": "Ahmedabad",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91 9825098250"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab",
+        "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-GLP-016",
+    "source_url": "https://example.com/listings/asus-rog-zephyrus-g14",
+    "title": "ASUS ROG Zephyrus G14 (Ryzen 9, RTX 4060, 16GB, 1TB SSD, 165Hz QHD)",
+    "description": "Compact gaming powerhouse with AniMe Matrix lid. Battery health 96%. Comes with dual chargers (Type-C travel + 240W brick).",
+    "category": "Laptops",
+    "subcategory": "Gaming Laptop",
+    "brand": "ASUS",
+    "model": "ROG Zephyrus G14",
+    "price": "₹94,000",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Salt Lake, Kolkata",
+    "posted_at": "2024-05-16T18:15:00Z",
+    "seller": {
+      "display_name": "Anirban G.",
+      "account_age": "1.5 years",
+      "profile_location": "Kolkata",
+      "seller_type": "individual",
+      "phone": "9830012345"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed",
+        "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-XIA-017",
+    "source_url": "https://example.com/listings/xiaomi-14-black",
+    "title": "Xiaomi 14 (Leica Optics, Snapdragon 8 Gen 3, 12GB/512GB)",
+    "description": "Compact flagship with Leica Summilux lens system. 90W fast charger, original silicone case, bill and box included.",
+    "category": "Smartphones",
+    "subcategory": "Xiaomi",
+    "brand": "Xiaomi",
+    "model": "Xiaomi 14",
+    "price": "₹48,000",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Jaipur, Rajasthan",
+    "posted_at": "2024-05-13T10:05:00Z",
+    "seller": {
+      "display_name": "Manish Sharma",
+      "account_age": "2 years",
+      "profile_location": "Jaipur",
+      "seller_type": "individual",
+      "phone": "9414012345"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
+        "sha256": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d24139499726f4bebac01ca"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-AUD-018",
+    "source_url": "https://example.com/listings/sony-wh1000xm5-silver",
+    "title": "Sony WH-1000XM5 Wireless Industry Leading Noise Canceling Headphones",
+    "description": "Silver edition with hard carry case, 3.5mm cable, and airplane adapter. Ear cushions are clean and sanitized. 30 hour battery life.",
+    "category": "Audio & Wearables",
+    "subcategory": "Headphones",
+    "brand": "Sony",
+    "model": "WH-1000XM5",
+    "price": "19500",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Ernakulam, Kochi, Kerala",
+    "posted_at": "2024-05-11T16:30:00Z",
+    "seller": {
+      "display_name": "Kiran George",
+      "account_age": "3 years",
+      "profile_location": "Kochi",
+      "verification_status": "verified",
+      "seller_type": "individual",
+      "phone": "+91 9847098470"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        "sha256": "18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-GPC-019",
+    "source_url": "https://example.com/listings/custom-gaming-rig-i7-rtx3080",
+    "title": "Custom Gaming Desktop PC (i7 13700K, RTX 3080 10GB, 32GB DDR5, 2TB NVMe)",
+    "description": "Custom built gaming and rendering PC with Lian Li O11 Dynamic case, 360mm AIO cooler, 850W Gold PSU. Stress tested on Cinebench and 3DMark.",
+    "category": "Gaming",
+    "subcategory": "Gaming PC",
+    "brand": "Custom",
+    "model": "Gaming PC",
+    "price": "₹1,15,000",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Chandigarh",
+    "posted_at": "2024-05-09T14:45:00Z",
+    "seller": {
+      "display_name": "Chandigarh PC Rig",
+      "account_age": "5 years",
+      "profile_location": "Chandigarh",
+      "seller_type": "business",
+      "business_name_claim": "Tricity Gaming Solutions",
+      "phone": "9815012345",
+      "email": "tricity.gaming@example.com"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1587202372634-32705e3bf49c",
+        "sha256": "5f4dcc3b5aa765d61d8327deb882cf992b9699aaf4fed28770d72c3be2ab46f6"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-CAN-020",
+    "source_url": "https://example.com/listings/canon-eos-r6-mirrorless",
+    "title": "Canon EOS R6 Full Frame Mirrorless Camera Body with EF Adapter",
+    "description": "Professional 20fps camera body with dual UHS-II SD slots and IBIS. Shutter count around 22,000. Clean body with minor strap rub.",
+    "category": "Cameras",
+    "subcategory": "Mirrorless",
+    "brand": "Canon",
+    "model": "EOS R6",
+    "price": "108000",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Lucknow, Uttar Pradesh",
+    "posted_at": "2024-05-08T11:00:00Z",
+    "seller": {
+      "display_name": "Alok Verma",
+      "account_age": "2 years",
+      "profile_location": "Lucknow",
+      "seller_type": "individual",
+      "phone": "+91 9415094150"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+        "sha256": "3b7c2f0f4a7c2c9d6f6e5e8f4a3c1b2a9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-POOR-021",
+    "source_url": "https://example.com/listings/broken-iphone-xr",
+    "title": "iPhone XR 64GB Black - Cracked Screen and Back Glass",
+    "description": "Phone turns on and touch works partially. Both front and back glass broken after drop. Face ID working. Selling for parts or repair.",
+    "category": "Smartphones",
+    "subcategory": "iPhone",
+    "brand": "Apple",
+    "model": "iPhone XR",
+    "price": "₹6,000",
+    "currency": "INR",
+    "condition": "poor",
+    "location": "Thane, Maharashtra",
+    "posted_at": "2024-05-04T13:20:00Z",
+    "seller": {
+      "display_name": "Repair Corner",
+      "account_age": "1 year",
+      "profile_location": "Thane",
+      "seller_type": "individual",
+      "phone": "9820998877"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1565849904461-04a58ad377e0",
+        "sha256": "9a0a82f0c0360f3634c330450059d071ef373a42ab31e3046164e597d701c30f"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-NOPRICE-022",
+    "source_url": "https://example.com/listings/nikon-d850-negotiable",
+    "title": "Nikon D850 DSLR Camera Body - Best Offer Takes It",
+    "description": "45.7MP high resolution beast. Selling because switched to Z mount mirrorless. Price negotiable, make a reasonable offer.",
+    "category": "Cameras",
+    "subcategory": "DSLR",
+    "brand": "Nikon",
+    "model": "D850",
+    "price": null,
+    "currency": "INR",
+    "condition": "fair",
+    "location": "South Delhi, Delhi",
+    "posted_at": "2024-05-07T10:15:00Z",
+    "seller": {
+      "display_name": "Ravi Photographer",
+      "account_age": "6 years",
+      "profile_location": "Delhi",
+      "seller_type": "individual",
+      "email": "ravi.nikon@example.com"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39",
+        "sha256": "7c4a8d09ca3762af61e59520943dc26494f8941b"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-NODESC-023",
+    "source_url": "https://example.com/listings/samsung-galaxy-buds2-pro",
+    "title": "Samsung Galaxy Buds 2 Pro Graphite",
+    "description": "",
+    "category": "Audio & Wearables",
+    "subcategory": "Earbuds",
+    "brand": "Samsung",
+    "model": "Galaxy Buds 2 Pro",
+    "price": "7500",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Surat, Gujarat",
+    "posted_at": "2024-05-12T17:00:00Z",
+    "seller": {
+      "display_name": "Kunal J.",
+      "account_age": "7 months",
+      "profile_location": "Surat",
+      "seller_type": "individual",
+      "phone": "9824012345"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df",
+        "sha256": "b10a8db164e0754105b7a99be72e3fe5"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-DUP-MEDIA-024",
+    "source_url": "https://example.com/listings/cheap-ps5-relisted",
+    "title": "Sony PS5 Console Disc Version Urgent Sell",
+    "description": "PS5 disc model with all accessories. Very urgent relocation sale.",
+    "category": "Gaming",
+    "subcategory": "PlayStation",
+    "brand": "Sony",
+    "model": "PlayStation 5",
+    "price": "₹28,000",
+    "currency": "INR",
+    "condition": "good",
+    "location": "Mumbai, Maharashtra",
+    "posted_at": "2024-05-18T19:00:00Z",
+    "seller": {
+      "display_name": "Fast Deals",
+      "account_age": "2 days",
+      "profile_location": "Mumbai",
+      "seller_type": "individual",
+      "phone": "9820999999"
+    },
+    "media": [
+      {
+        "media_type": "image",
+        "source_url": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db",
+        "sha256": "5d41402abc4b2a76b9719d911017c592a2a229a43a84dfa1d8212ec9103c8c67"
+      }
+    ],
+    "synthetic": true
+  },
+  {
+    "source": "user_submission",
+    "source_listing_id": "SYN-DUP-EXACT-025",
+    "source_url": "https://example.com/listings/iphone-15-pro-blue",
+    "title": "Apple iPhone 15 Pro 128GB Blue Titanium - 4 months old with Bill & Box",
+    "description": "Selling my pristine condition iPhone 15 Pro. 100% battery health, original USB-C braided cable, bill from Imagine store.",
+    "category": "Smartphones",
+    "subcategory": "iPhone",
+    "brand": "Apple",
+    "model": "iPhone 15 Pro",
+    "price": "78500",
+    "currency": "INR",
+    "condition": "like_new",
+    "location": "Indiranagar, Bangalore",
+    "posted_at": "2024-05-10T14:30:00Z",
+    "seller": {
+      "display_name": "Arjun M.",
+      "account_age": "2 years",
+      "profile_location": "Bangalore",
+      "seller_type": "individual",
+      "phone": "+91 9876543210"
+    },
+    "media": [],
+    "synthetic": true
+  }
+]

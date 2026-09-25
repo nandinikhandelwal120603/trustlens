@@ -1,0 +1,11 @@
+{
+  "name": "capture-olx",
+  "version": "1.0.0",
+  "description": "TrustLens OLX Researcher Capture Extension",
+  "scripts": {
+    "test": "node tests/test_extractors.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}

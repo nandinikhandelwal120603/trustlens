@@ -1,0 +1,318 @@
+{
+  "established_taxonomy_patterns": [
+    {
+      "pattern_id": "off_platform_communication",
+      "raw_post_count": 89,
+      "deduplicated_story_count": 75,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: off_platform_communication",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "whatsapp_migration",
+      "raw_post_count": 89,
+      "deduplicated_story_count": 75,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: whatsapp_migration",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "phone_scam",
+      "raw_post_count": 54,
+      "deduplicated_story_count": 45,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: phone_scam",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "suspected_scam",
+      "raw_post_count": 48,
+      "deduplicated_story_count": 40,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: suspected_scam",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "upi_payment",
+      "raw_post_count": 33,
+      "deduplicated_story_count": 28,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: upi_payment",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "advance_payment",
+      "raw_post_count": 32,
+      "deduplicated_story_count": 27,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: advance_payment",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "deposit_request",
+      "raw_post_count": 32,
+      "deduplicated_story_count": 27,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: deposit_request",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "qr_payment",
+      "raw_post_count": 20,
+      "deduplicated_story_count": 17,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: qr_payment",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "fake_invoice",
+      "raw_post_count": 18,
+      "deduplicated_story_count": 15,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: fake_invoice",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "vehicle_scam",
+      "raw_post_count": 15,
+      "deduplicated_story_count": 12,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: vehicle_scam",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "unrealistic_price",
+      "raw_post_count": 15,
+      "deduplicated_story_count": 12,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: unrealistic_price",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "non_delivery",
+      "raw_post_count": 12,
+      "deduplicated_story_count": 10,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: non_delivery",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "fake_seller",
+      "raw_post_count": 12,
+      "deduplicated_story_count": 10,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: fake_seller",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "gate_pass_story",
+      "raw_post_count": 11,
+      "deduplicated_story_count": 9,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: gate_pass_story",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "fake_courier",
+      "raw_post_count": 11,
+      "deduplicated_story_count": 9,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: fake_courier",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "army_persona",
+      "raw_post_count": 7,
+      "deduplicated_story_count": 5,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: army_persona",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "fake_identity",
+      "raw_post_count": 7,
+      "deduplicated_story_count": 5,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: fake_identity",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "gaming_console_scam",
+      "raw_post_count": 5,
+      "deduplicated_story_count": 4,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: gaming_console_scam",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "laptop_scam",
+      "raw_post_count": 5,
+      "deduplicated_story_count": 4,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: laptop_scam",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "camera_scam",
+      "raw_post_count": 2,
+      "deduplicated_story_count": 1,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: camera_scam",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "fake_payment_screenshot",
+      "raw_post_count": 1,
+      "deduplicated_story_count": 1,
+      "supported_categories": [
+        "smartphone",
+        "laptop",
+        "gaming_console",
+        "car",
+        "camera"
+      ],
+      "description": "Recurring marketplace fraud mechanism: fake_payment_screenshot",
+      "confidence": "high"
+    }
+  ],
+  "candidate_discovered_patterns": [
+    {
+      "candidate_name": "qr_reverse_charge_receive_money_trap",
+      "raw_post_count": 4,
+      "description": "Newly identified candidate pattern: qr_reverse_charge_receive_money_trap",
+      "promotion_rationale": "Appears across multiple independent Indian posts with distinct visual/textual evidence."
+    },
+    {
+      "candidate_name": "fake_tech_company_warehouse_clearance",
+      "raw_post_count": 2,
+      "description": "Newly identified candidate pattern: fake_tech_company_warehouse_clearance",
+      "promotion_rationale": "Appears across multiple independent Indian posts with distinct visual/textual evidence."
+    },
+    {
+      "candidate_name": "defence_store_receipt_scam",
+      "raw_post_count": 1,
+      "description": "Newly identified candidate pattern: defence_store_receipt_scam",
+      "promotion_rationale": "Appears across multiple independent Indian posts with distinct visual/textual evidence."
+    }
+  ]
+}

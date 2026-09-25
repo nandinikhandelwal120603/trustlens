@@ -1,0 +1,66 @@
+# TrustLens Multi-Signal Evidence Analysis
+
+**Pipeline Phase:** Phase K (Final Synthesis)  
+**Total Multi-Signal Candidate Pairs:** 213  
+**Status:** FROZEN ANALYTICAL ARTIFACT  
+
+---
+
+## 1. Multi-Signal Evidence Breakdown
+
+In accordance with TrustLens methodology, `evidence_count` is an integer count of observed, independent forensic layers. **It is NOT a risk score, nor is it weighted into a fraud probability.**
+
+### Evidence Tier Distribution
+
+| Evidence Tier | Layer Count | Candidate Pairs | % of Multi-Signal Pairs | Research Interpretation |
+| :--- | :---: | :---: | :---: | :--- |
+| **Strongly Cross-Corroborated** | **4 Layers** | **5** | **2.35%** | Independent convergence across image, text, OCR/multimodal, and network layers. |
+| **Multi-Signal Observations** | **3 Layers** | **63** | **29.58%** | Corroborated across two primary modalities plus network/price context. |
+| **Multi-Signal Observations** | **2 Layers** | **145** | **68.08%** | Direct observation or candidate relationship spanning two modalities. |
+
+---
+
+## 2. Top Cross-Corroborated Listing Pairs
+
+The table below presents the listing pairs exhibiting the highest count of independent forensic layers. This table represents a **research review queue**, not a list of confirmed infractions.
+
+| Listing A | Listing B | Product | Geographies | Active Evidence Layers | Layer Count | Status |
+| :--- | :--- | :--- | :--- | :--- | :---: | :--- |
+| `1853660829` | `1854122590` | DualSense Controller | Bankra / Rajpur Sonarpur | LISTING_SHARED_OCR_PHRASE; LISTING_TEXT_SIMILARITY_CANDIDATE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **4** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1853686065` | `1854199139` | Generic Smartphone | Nashik / Mumbai | LISTING_SHARED_OCR_PHRASE; LISTING_TEXT_SIMILARITY_CANDIDATE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **4** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854318744` | `1854319300` | iPhone 17 Pro | nan / nan | LISTING_SHARED_OCR_PHRASE; LISTING_TEXT_SIMILARITY_CANDIDATE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **4** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854321167` | `1854321649` | iPhone 17 Pro Max | nan / nan | LISTING_SHARED_OCR_PHRASE; LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **4** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1855486723` | `1855486739` | iPhone 17 Pro Max | nan / nan | LISTING_SHARED_OCR_PHRASE; LISTING_TEXT_EXACT_REUSE; MEDIA_PERCEPTUAL_REUSE_CANDIDATE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **4** | `CROSS_MODAL_SIMILARITY_CANDIDATE` |
+| `1846961703` | `1856376117` | DualSense Controller | Hyderabad / Bengaluru | LISTING_TEXT_EXACT_REUSE; MEDIA_PERCEPTUAL_REUSE_CANDIDATE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `CROSS_MODAL_SIMILARITY_CANDIDATE` |
+| `1846961703` | `1854469697` | DualSense Controller | Ahmedabad / Bengaluru | LISTING_TEXT_EXACT_REUSE; MEDIA_PERCEPTUAL_REUSE_CANDIDATE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `CROSS_MODAL_SIMILARITY_CANDIDATE` |
+| `1848089038` | `1848247708` | iPhone 17 Pro | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1850452337` | `1850452842` | MacBook Pro | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852342270` | `1852479976` | iPhone 17 | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_PERCEPTUAL_REUSE_CANDIDATE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `CROSS_MODAL_SIMILARITY_CANDIDATE` |
+| `1852564374` | `1852565327` | iPhone 17 | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852564374` | `1852565393` | iPhone 17 | nan / Bengaluru | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852564374` | `1852564490` | iPhone 17 | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852564490` | `1852565327` | iPhone 17 | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852564490` | `1852565393` | iPhone 17 | Bengaluru / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852565327` | `1852565393` | iPhone 17 | nan / Bengaluru | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1852633319` | `1856125857` | iPhone 14 Pro | nan / nan | LISTING_TEXT_SIMILARITY_CANDIDATE; MEDIA_PERCEPTUAL_REUSE_CANDIDATE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `CROSS_MODAL_SIMILARITY_CANDIDATE` |
+| `1853333212` | `1853333637` | MacBook Pro | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1853435079` | `1853435487` | MacBook Air | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1853568284` | `1853568578` | MacBook Air | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1853735648` | `1853735934` | MacBook Air | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1853912994` | `1853916011` | MacBook | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854012987` | `1854013502` | MacBook Pro | Delhi / Delhi | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854213713` | `1854293799` | iPhone 14 Pro | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854213713` | `1854293091` | iPhone 14 Pro | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854256382` | `1855536507` | DualSense Controller | Diu / Arsikere | LISTING_TEXT_SIMILARITY_CANDIDATE; MEDIA_PERCEPTUAL_REUSE_CANDIDATE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `CROSS_MODAL_SIMILARITY_CANDIDATE` |
+| `1854293091` | `1854293799` | iPhone 14 Pro | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854301908` | `1854399432` | DualSense Controller | Mumbai / Hyderabad | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854337262` | `1854384744` | DualSense Controller | Pune / Pune | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+| `1854362039` | `1854362712` | iPhone 17 | nan / nan | LISTING_TEXT_EXACT_REUSE; MEDIA_EXACT_REUSE; MEDIA_VISUAL_SIMILARITY_CANDIDATE | **3** | `OBSERVED_DUPLICATION_CANDIDATE` |
+
+---
+
+## 3. Important Methodological Guardrails
+
+1. **No Risk Scoring:** Multi-signal convergence indicates higher empirical interest for human review. It does not prove malicious intent.
+2. **Alternative Explanations:** Legitimate merchant syndication, retailer templates, refurbisher bulk listings, and multi-branch stores routinely produce multi-signal convergence (exact images + exact text).
+3. **External Ground Truth Required:** Accusations of fraud or deceptive seller conduct cannot be made without transaction logs and verified fraud outcomes.

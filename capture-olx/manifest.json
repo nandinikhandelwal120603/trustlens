@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "TrustLens — OLX Marketplace Collector",
+  "version": "1.0.0",
+  "description": "Researcher-controlled capture tool for publicly visible OLX listing and search result data.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "*://*.olx.in/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "TrustLens OLX Collector",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.olx.in/*"],
+      "js": [
+        "schemas/listing-schema.js",
+        "content/detector.js",
+        "content/media-extractor.js",
+        "content/normalizer.js",
+        "content/search-capture.js",
+        "content/listing-capture.js",
+        "content/auto-loader.js",
+        "content/content-main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

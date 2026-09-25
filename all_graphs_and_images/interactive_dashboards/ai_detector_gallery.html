@@ -1,0 +1,3488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustLens — Phase G.1 Dedicated AI Detector Forensic Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0B0F19;
+            --surface-color: #111827;
+            --surface-card: #1E293B;
+            --border-color: #334155;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --primary: #3B82F6;
+            --primary-glow: rgba(59, 130, 246, 0.2);
+            --ai-color: #EF4444;
+            --real-color: #10B981;
+            --borderline-color: #F59E0B;
+            --disagree-color: #8B5CF6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 30px 40px;
+            line-height: 1.5;
+        }
+        header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .badge-brand {
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .stat-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .filters-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .filter-btn {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #FFF;
+            border-color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .gallery-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .gallery-card:hover {
+            transform: translateY(-3px);
+            border-color: #64748B;
+        }
+        .card-image-wrap {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-image-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .card-image-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 6px;
+        }
+        .card-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .media-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .listing-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .layer-section {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .layer-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #94A3B8;
+            margin-bottom: 6px;
+        }
+        .layer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        .score-label code {
+            font-family: 'JetBrains Mono', monospace;
+            color: #E2E8F0;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .badge-ai { background: rgba(239, 68, 68, 0.2); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .badge-real { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-borderline { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .badge-disagree { background: rgba(139, 92, 246, 0.2); color: #A78BFA; border: 1px solid rgba(139, 92, 246, 0.4); }
+        .badge-puter { background: rgba(236, 72, 153, 0.2); color: #F472B6; border: 1px solid rgba(236, 72, 153, 0.4); }
+        .badge-neutral { background: rgba(100, 116, 139, 0.2); color: #94A3B8; border: 1px solid rgba(100, 116, 139, 0.4); }
+        .badge-type { background: rgba(30, 41, 59, 0.85); color: #CBD5E1; border: 1px solid #475569; }
+        .badge-prod { background: rgba(2, 132, 199, 0.3); color: #38BDF8; border: 1px solid rgba(2, 132, 199, 0.5); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div>
+                <h1>TrustLens Forensic Gallery <span class="badge-brand">Phase G.1</span></h1>
+                <p class="subtitle">Two-Detector AI-Generated Image Intelligence & Multimodal Escalation Review</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">2,280</div>
+                <div class="stat-label">Total Assets Evaluated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #34D399;">958</div>
+                <div class="stat-label">Agreement: Real (42.0%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #F87171;">6</div>
+                <div class="stat-label">Multi-Detector AI Candidates (0.3%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #A78BFA;">559</div>
+                <div class="stat-label">Detector Disagreements (24.5%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #FBBF24;">757</div>
+                <div class="stat-label">Borderline (33.2%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: #F472B6;">1,316</div>
+                <div class="stat-label">Puter Escalation Queue (57.7%)</div>
+            </div>
+        </div>
+
+        <div class="filters-bar">
+            <button class="filter-btn active" onclick="filterGallery('ALL')">All Exemplars (71)</button>
+            <button class="filter-btn" onclick="filterGallery('AGREEMENT_AI')">AI Candidates (6)</button>
+            <button class="filter-btn" onclick="filterGallery('DETECTOR_DISAGREEMENT')">Disagreements (25)</button>
+            <button class="filter-btn" onclick="filterGallery('BORDERLINE')">Borderline (20)</button>
+            <button class="filter-btn" onclick="filterGallery('AGREEMENT_REAL')">Real Agreement (20)</button>
+            <button class="filter-btn" onclick="filterGallery('PUTER')">Puter Escalation Queue</button>
+        </div>
+    </header>
+
+    <main class="gallery-grid" id="galleryGrid">
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_AI" data-type="DOCUMENT_LIKE" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/w6mpoxkmz4ci2-IN.webp" alt="MED-1835966549-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">DOCUMENT_LIKE</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1835966549-0">MED-1835966549-0</span>
+                    <span class="badge badge-ai">AGREEMENT_AI</span>
+                </div>
+                <div class="listing-title" title="Dead kharab Purane Phone lete sell krne ke liye call kre achha rate pe">Dead kharab Purane Phone lete sell krne ke liye call kre achha rate pe</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7038</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9984</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (53.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_AI" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/sxlohfvdn5az2-IN.webp" alt="MED-1842975565-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1842975565-0">MED-1842975565-0</span>
+                    <span class="badge badge-ai">AGREEMENT_AI</span>
+                </div>
+                <div class="listing-title" title="Iphone 13 pro max for exchange">Iphone 13 pro max for exchange</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9750</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7724</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_AI" data-type="DOCUMENT_LIKE" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/fdcuagyhuqhe3-IN.webp" alt="MED-1849662426-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">DOCUMENT_LIKE</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1849662426-0">MED-1849662426-0</span>
+                    <span class="badge badge-ai">AGREEMENT_AI</span>
+                </div>
+                <div class="listing-title" title="All types of mobile repairing
+done here">All types of mobile repairing
+done here</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9051</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9922</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (30.3%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_AI" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/tz3dmhmp22k22-IN.webp" alt="MED-1855112256-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">Other Electronics</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1855112256-0">MED-1855112256-0</span>
+                    <span class="badge badge-ai">AGREEMENT_AI</span>
+                </div>
+                <div class="listing-title" title="PS5 CONTROLLER EXCELLENT CONDITION">PS5 CONTROLLER EXCELLENT CONDITION</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7832</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9817</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (66.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_AI" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/zesql1yvjnqj2-IN.webp" alt="MED-1855210274-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1855210274-0">MED-1855210274-0</span>
+                    <span class="badge badge-ai">AGREEMENT_AI</span>
+                </div>
+                <div class="listing-title" title="MacBook Pro 16-inch 2019 | Core i7 | 32GB RAM | 512GB SSD | Excellent">MacBook Pro 16-inch 2019 | Core i7 | 32GB RAM | 512GB SSD | Excellent</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8831</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9959</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (35.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_AI" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/scttvt26t9tg-IN.webp" alt="MED-1856372030-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1856372030-0">MED-1856372030-0</span>
+                    <span class="badge badge-ai">AGREEMENT_AI</span>
+                </div>
+                <div class="listing-title" title="Iphone 15 128gb blue colour with box & bill">Iphone 15 128gb blue colour with box & bill</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9437</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7917</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/ndct2ob89tcf3-IN.webp" alt="MED-1694522732-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1694522732-0">MED-1694522732-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple IPad Pro 5th Gen 12.9 inches (M1)">Apple IPad Pro 5th Gen 12.9 inches (M1)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0223</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9699</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (46.2%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/1nzdtkhqo04d-IN.webp" alt="MED-1738761136-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1738761136-0">MED-1738761136-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="सर्व प्रकारचे iphone, one plus,android फोन 2000 रु पासून पुढे उपलब्ध">सर्व प्रकारचे iphone, one plus,android फोन 2000 रु पासून पुढे उपलब्ध</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0222</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9434</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (37.3%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/5kwvg3k21rix1-IN.webp" alt="MED-1764861088-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1764861088-0">MED-1764861088-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="iPhone 15 Pro Max 256GB N.T 86% Battey New Condition">iPhone 15 Pro Max 256GB N.T 86% Battey New Condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0177</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7928</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (36.2%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/l3saus23u8bd-IN.webp" alt="MED-1779276044-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1779276044-0">MED-1779276044-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple iphone 14 Pro Max 256GB Battery 82% Health USA Unit">Apple iphone 14 Pro Max 256GB Battery 82% Health USA Unit</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0286</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8262</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (71.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/tej3vvt0rz3r1-IN.webp" alt="MED-1799726462-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1799726462-0">MED-1799726462-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Vivo X80 5G 128GB 8GB RAM Cosmic Black (Refurbished)">Vivo X80 5G 128GB 8GB RAM Cosmic Black (Refurbished)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0411</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9394</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/c9tf68ksre5h1-IN.webp" alt="MED-1806787693-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1806787693-0">MED-1806787693-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Used Apple iPhone 15 5G 128GB">Used Apple iPhone 15 5G 128GB</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0369</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9321</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (41.7%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/j1ir174q6y35-IN.webp" alt="MED-1813996467-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1813996467-0">MED-1813996467-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Spares for apple watch">Spares for apple watch</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0147</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7211</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/khhbeijwfy682-IN.webp" alt="MED-1816330379-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1816330379-0">MED-1816330379-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple Macbook Air (Fixed Price)">Apple Macbook Air (Fixed Price)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0222</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8189</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (2.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/cj5axoa7u1652-IN.webp" alt="MED-1825026480-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1825026480-0">MED-1825026480-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Iphone Air China model sale / exchange">Iphone Air China model sale / exchange</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0174</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9287</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (40.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/fndio70sl0bg3-IN.webp" alt="MED-1827241207-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827241207-0">MED-1827241207-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="iPhone 13 available in best and exceptional condition">iPhone 13 available in best and exceptional condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0155</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8308</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (5.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/36pxrxkrjcj6-IN.webp" alt="MED-1827342474-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827342474-0">MED-1827342474-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple iphone 14 Pro Max 256GB 82% Health USA Unit">Apple iphone 14 Pro Max 256GB 82% Health USA Unit</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0173</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9362</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (38.2%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/t0qpt3hyfg9l-IN.webp" alt="MED-1827663284-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827663284-0">MED-1827663284-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple iPhone 13 Pro Max 5G 128GB/256GB (Refurbished)">Apple iPhone 13 Pro Max 5G 128GB/256GB (Refurbished)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0265</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9478</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (41.2%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/se3q2j3adu893-IN.webp" alt="MED-1827679272-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827679272-0">MED-1827679272-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple iPhone 13 Mini 5G 128GB/256GB (Refurbished)">Apple iPhone 13 Mini 5G 128GB/256GB (Refurbished)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0266</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9338</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (24.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/2b57hqzy570g-IN.webp" alt="MED-1828642203-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1828642203-0">MED-1828642203-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Og iphone 6s">Og iphone 6s</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0088</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8986</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (32.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/b169j5ejuuma3-IN.webp" alt="MED-1829628026-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1829628026-0">MED-1829628026-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="iPhone 13pro max available in nice and superb condition">iPhone 13pro max available in nice and superb condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0091</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8447</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (50.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/jzmqj3fkjdvv-IN.webp" alt="MED-1832185724-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1832185724-0">MED-1832185724-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="N - Apple MacBook Pro Touchbar Series">N - Apple MacBook Pro Touchbar Series</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.2405</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9106</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/ergi3nx61zef3-IN.webp" alt="MED-1832185815-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1832185815-0">MED-1832185815-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="N - Apple MacBook Pro 8/256 - i5 Processor">N - Apple MacBook Pro 8/256 - i5 Processor</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0883</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9283</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (26.4%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/89sd7ffpiorf-IN.webp" alt="MED-1835291221-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1835291221-0">MED-1835291221-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Midnight blue 128 gb battery health 85 A one Condition">Midnight blue 128 gb battery health 85 A one Condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0396</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9152</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/sdcrshtvce0i3-IN.webp" alt="MED-1835421264-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">Other Electronics</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1835421264-0">MED-1835421264-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="PS5 CAMO CONTROLLER 1 YEAR WARRANTY">PS5 CAMO CONTROLLER 1 YEAR WARRANTY</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0196</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9643</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/dbdfpkcufpts3-IN.webp" alt="MED-1835579064-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1835579064-0">MED-1835579064-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="1TB Excellent Apple iPhone 16 Pro Max Going Lowest at 99900 ONLY">1TB Excellent Apple iPhone 16 Pro Max Going Lowest at 99900 ONLY</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0091</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.7978</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (37.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/9ib9r8ddol902-IN.webp" alt="MED-1836416224-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1836416224-0">MED-1836416224-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="N - Apple MacBook M1 Pro Chip 16 inch">N - Apple MacBook M1 Pro Chip 16 inch</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1117</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9656</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (53.7%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/8n6rp2178j5t2-IN.webp" alt="MED-1836541932-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">Other Electronics</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1836541932-0">MED-1836541932-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Ps5 controller">Ps5 controller</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0082</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8894</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (39.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/fsg5fb9lubds2-IN.webp" alt="MED-1837626124-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1837626124-0">MED-1837626124-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Iphone 16 pro 256gb desert titanium 91% battery">Iphone 16 pro 256gb desert titanium 91% battery</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0103</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.9430</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (24.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/kvzwzzj3a7kd-IN.webp" alt="MED-1837640225-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1837640225-0">MED-1837640225-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="Apple macbook">Apple macbook</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0494</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8625</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (24.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="DETECTOR_DISAGREEMENT" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/jw8h8en3c7m81-IN.webp" alt="MED-1837698483-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1837698483-0">MED-1837698483-0</span>
+                    <span class="badge badge-disagree">DETECTOR_DISAGREEMENT</span>
+                </div>
+                <div class="listing-title" title="N - Apple MacBook Pro Touchbar ( Laptop)">N - Apple MacBook Pro Touchbar ( Laptop)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0288</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.8726</code></span>
+                        <span class="badge badge-ai">AI_GENERATION_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (45.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/6bibl5q1amek-IN.webp" alt="MED-1754602725-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1754602725-0">MED-1754602725-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 14 Pro Max 128GB Battery 90% Health Good Condition">iPhone 14 Pro Max 128GB Battery 90% Health Good Condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0135</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.6649</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (25.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/6z8zd2szjs5y2-IN.webp" alt="MED-1786452871-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1786452871-0">MED-1786452871-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 15 256GB Indian Unit | Blue Color With Original Box">iPhone 15 256GB Indian Unit | Blue Color With Original Box</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0109</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.4607</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/5eazxcz4lo5a3-IN.webp" alt="MED-1791796549-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1791796549-0">MED-1791796549-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="Iphone 15 mid frame with assembly">Iphone 15 mid frame with assembly</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0090</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.4778</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (25.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="SCREENSHOT" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/s72yaely0utp3-IN.webp" alt="MED-1800236248-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">SCREENSHOT</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1800236248-0">MED-1800236248-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="karol bhagh se b saste me disply lagwaye hand to hand best price">karol bhagh se b saste me disply lagwaye hand to hand best price</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1177</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3375</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (70.6%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/4eemmoh8pdi5-IN.webp" alt="MED-1806290461-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1806290461-0">MED-1806290461-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="GENUINE APPLE IPHONE 5S & 5C IN BOX PACKING – RARE FIND!! BUY">GENUINE APPLE IPHONE 5S & 5C IN BOX PACKING – RARE FIND!! BUY</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0140</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.4430</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (23.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/sndubam0n3742-IN.webp" alt="MED-1808418593-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">Other Electronics</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1808418593-0">MED-1808418593-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="PS5 Dualsense Controller">PS5 Dualsense Controller</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0161</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3605</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (16.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/byr0qeicyk0x2-IN.webp" alt="MED-1808814414-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">Other Electronics</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1808814414-0">MED-1808814414-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="All Xbox series x PS3 PS4 PS5 Controller Repair">All Xbox series x PS3 PS4 PS5 Controller Repair</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0091</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.4610</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (26.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/f6jwlp2gltfm2-IN.webp" alt="MED-1823409874-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1823409874-0">MED-1823409874-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 14 – 128GB (Light Pink)">iPhone 14 – 128GB (Light Pink)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0182</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3582</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/099zld0twx6b1-IN.webp" alt="MED-1827425399-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827425399-0">MED-1827425399-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 15 available in neat and finest condition">iPhone 15 available in neat and finest condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0120</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.6622</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (60.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/rysfq1a7atm51-IN.webp" alt="MED-1827435737-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827435737-0">MED-1827435737-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 15 available in neat and terrific condition">iPhone 15 available in neat and terrific condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1014</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.4121</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (61.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/duuhl7u12j3w-IN.webp" alt="MED-1827665205-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827665205-0">MED-1827665205-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="Apple Watch Series 11 GPS 42mm Black (Unboxed - Brand warranty)">Apple Watch Series 11 GPS 42mm Black (Unboxed - Brand warranty)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0665</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.5316</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (24.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/ry115rcnk5fn2-IN.webp" alt="MED-1827723525-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827723525-0">MED-1827723525-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 13mini available in best and topmost condition">iPhone 13mini available in best and topmost condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0094</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.4153</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (39.4%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/py9gkeiytinj-IN.webp" alt="MED-1827726236-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827726236-0">MED-1827726236-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 13mini available in best and brand new condition">iPhone 13mini available in best and brand new condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0088</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3171</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (13.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/bkhndxj9t2lp2-IN.webp" alt="MED-1827727844-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827727844-0">MED-1827727844-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 13mini available in best and fabulous condition">iPhone 13mini available in best and fabulous condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0164</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3840</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (45.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/xwzj12xil39n2-IN.webp" alt="MED-1827983940-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827983940-0">MED-1827983940-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 14 available in neat and tremendous condition">iPhone 14 available in neat and tremendous condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0151</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.6453</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (52.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/87k0uw3q0ia6-IN.webp" alt="MED-1828195146-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1828195146-0">MED-1828195146-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 16 available in best and awesome condition">iPhone 16 available in best and awesome condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0115</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.5521</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (25.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/igl79ohuch8m-IN.webp" alt="MED-1828407030-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1828407030-0">MED-1828407030-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="I want to sell my old iPhone 13. Need urgent money">I want to sell my old iPhone 13. Need urgent money</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0144</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.5912</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (32.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/cjdp8q6yqxve1-IN.webp" alt="MED-1829869883-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1829869883-0">MED-1829869883-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="iPhone 14pro max available in neat and prime condition">iPhone 14pro max available in neat and prime condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0137</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3510</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (52.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="PHOTO" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/gcjefr8ce9ul1-IN.webp" alt="MED-1829948699-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1829948699-0">MED-1829948699-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="Flawless condition Apple MacBook Air, Personal used">Flawless condition Apple MacBook Air, Personal used</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0450</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.6959</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (27.1%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="BORDERLINE" data-type="TEXT_HEAVY" data-escalated="true">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/lxu99n91fnma-IN.webp" alt="MED-1832020377-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1832020377-0">MED-1832020377-0</span>
+                    <span class="badge badge-borderline">BORDERLINE</span>
+                </div>
+                <div class="listing-title" title="G - Apple MacBook Pro M1 Chip">G - Apple MacBook Pro M1 Chip</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0313</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.3525</code></span>
+                        <span class="badge badge-borderline">BORDERLINE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-puter">QUEUED FOR PUTER REVIEW</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (16.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/x67zszrwhsfv3-IN.webp" alt="MED-1770822396-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1770822396-0">MED-1770822396-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Apple iPhone 12 (256gb)">Apple iPhone 12 (256gb)</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0338</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1786</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (35.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/n9tsw00i1h1c1-IN.webp" alt="MED-1787849968-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1787849968-0">MED-1787849968-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 14 Pro Max Black 256GB BT 90% Health Good Condition">iPhone 14 Pro Max Black 256GB BT 90% Health Good Condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0190</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1759</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (49.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/0hgc20toktx12-IN.webp" alt="MED-1787850145-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1787850145-0">MED-1787850145-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Apple iphone 14 Pro Max 128GB Battery 90% Health Indian Unit">Apple iphone 14 Pro Max 128GB Battery 90% Health Indian Unit</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0666</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.2978</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (24.3%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/n2okmbh7z45v1-IN.webp" alt="MED-1796843325-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1796843325-0">MED-1796843325-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Apple IPad Pro 12.9 inch 128gb ( wifi + 5g )">Apple IPad Pro 12.9 inch 128gb ( wifi + 5g )</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0230</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.2863</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (18.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/9a63tpfujuzk1-IN.webp" alt="MED-1801641408-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1801641408-0">MED-1801641408-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Used models Iphone 16/16 plus/16 pro and 16 pro max sealed">Used models Iphone 16/16 plus/16 pro and 16 pro max sealed</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0171</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1789</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (36.3%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/w6gcvo8f1qs5-IN.webp" alt="MED-1823089263-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">Other Electronics</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1823089263-0">MED-1823089263-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Check price below - PS4 PS5 Games and Original Controller">Check price below - PS4 PS5 Games and Original Controller</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0141</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1307</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (15.6%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/nller6ax5l4s3-IN.webp" alt="MED-1824044657-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1824044657-0">MED-1824044657-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Brand new sealed units Iphone 17 Air /17 pro and 17 pro max sealed">Brand new sealed units Iphone 17 Air /17 pro and 17 pro max sealed</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0182</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1956</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (24.4%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/6wefhues6q952-IN.webp" alt="MED-1827230008-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827230008-0">MED-1827230008-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 13 available in best and classic condition">iPhone 13 available in best and classic condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0194</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0598</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (44.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/49wpt12vaw4o-IN.webp" alt="MED-1827240444-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827240444-0">MED-1827240444-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 13 available in best and perfect condition">iPhone 13 available in best and perfect condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0096</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1199</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/ab37pxb9o70a1-IN.webp" alt="MED-1827355288-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827355288-0">MED-1827355288-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Iphone 6S Gold 32gb Exchange Avebale">Iphone 6S Gold 32gb Exchange Avebale</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0152</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1777</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/j817jvfdbm402-IN.webp" alt="MED-1827615445-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827615445-0">MED-1827615445-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 14 pro 512gb">iPhone 14 pro 512gb</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0424</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1527</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (69.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/ib08p5zmisj3-IN.webp" alt="MED-1827683357-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827683357-0">MED-1827683357-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 15 - 128GB Out Of Warranty Indian Unit Original Box Cable">iPhone 15 - 128GB Out Of Warranty Indian Unit Original Box Cable</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0152</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1001</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/errzrlul0b9l1-IN.webp" alt="MED-1827720688-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827720688-0">MED-1827720688-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 16pro max available in best and tiptop condition">iPhone 16pro max available in best and tiptop condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0171</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1655</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/ejlj7k78zya32-IN.webp" alt="MED-1827986476-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1827986476-0">MED-1827986476-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="IPhone 17pro max available in neat and outstanding condition">IPhone 17pro max available in neat and outstanding condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0320</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1364</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (33.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/rvi8jb83cv1d-IN.webp" alt="MED-1828173924-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1828173924-0">MED-1828173924-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 16 Available in best and superior condition">iPhone 16 Available in best and superior condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0149</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0298</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (32.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/2l6ga5us8tn1-IN.webp" alt="MED-1828174638-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1828174638-0">MED-1828174638-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 16 Available in best and magnificent condition">iPhone 16 Available in best and magnificent condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0218</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.2306</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (19.5%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/0ufx7gjmwz1z2-IN.webp" alt="MED-1829281290-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1829281290-0">MED-1829281290-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 12 available in first class condition">iPhone 12 available in first class condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0161</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.2339</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (21.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/daw1jbrfm1w01-IN.webp" alt="MED-1829285153-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1829285153-0">MED-1829285153-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 12mini available in classic cult condition">iPhone 12mini available in classic cult condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0093</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0836</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (25.8%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="TEXT_HEAVY" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/1qw4av2il03j-IN.webp" alt="MED-1829629352-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">TEXT_HEAVY</span>
+                    <span class="badge badge-prod">iPhone</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1829629352-0">MED-1829629352-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="iPhone 13pro max available in nice and first class condition">iPhone 13pro max available in nice and first class condition</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0143</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.2404</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_text (54.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-card" data-agreement="AGREEMENT_REAL" data-type="PHOTO" data-escalated="false">
+            <div class="card-image-wrap">
+                <img src="../../data/olx_media/tlhhlkrbjm4s-IN.webp" alt="MED-1830884964-0" loading="lazy" onerror="this.style.background='#334155'"/>
+                <div class="card-image-overlay">
+                    <span class="badge badge-type">PHOTO</span>
+                    <span class="badge badge-prod">MacBook</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="media-id" title="MED-1830884964-0">MED-1830884964-0</span>
+                    <span class="badge badge-real">AGREEMENT_REAL</span>
+                </div>
+                <div class="listing-title" title="Apple Macbook Pro">Apple Macbook Pro</div>
+                
+                <div class="layer-section">
+                    <div class="layer-title">Layer 1: Detector A (ViT-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.0118</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 2: Detector B (Swin-Base)</div>
+                    <div class="layer-row">
+                        <span class="score-label">Raw Score: <code>0.1286</code></span>
+                        <span class="badge badge-real">REAL_IMAGE_CANDIDATE</span>
+                    </div>
+                </div>
+
+                <div class="layer-section">
+                    <div class="layer-title">Layer 3: Secondary Review & Provenance</div>
+                    <div class="layer-row">
+                        <span class="score-label">Puter Status:</span>
+                        <span class="badge badge-neutral">NOT QUEUED</span>
+                    </div>
+                    <div class="layer-row">
+                        <span class="score-label">C2PA: <code>ABSENT</code></span>
+                        <span class="score-label">OCR: <code>success_no_text (0.0%)</code></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script>
+        function filterGallery(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const cards = document.querySelectorAll('.gallery-card');
+            cards.forEach(card => {
+                if (filter === 'ALL') {
+                    card.style.display = 'flex';
+                } else if (filter === 'PUTER') {
+                    card.style.display = (card.getAttribute('data-escalated') === 'true') ? 'flex' : 'none';
+                } else {
+                    card.style.display = (card.getAttribute('data-agreement') === filter) ? 'flex' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

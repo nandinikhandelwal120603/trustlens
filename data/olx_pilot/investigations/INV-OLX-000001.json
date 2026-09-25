@@ -1,0 +1,270 @@
+{
+  "investigation_id": "INV-OLX-000001",
+  "source": "olx",
+  "listing": {
+    "listing_id": "OLX-000001",
+    "source": "olx",
+    "source_listing_id": "1804291",
+    "listing_url": "https://www.olx.in/item/macbook-pro-m2-clearance-iid-1804291",
+    "investigation_id": "INV-002",
+    "collection_type": "targeted",
+    "title": "Apple MacBook Pro M2 16GB 512GB",
+    "description": "Urgent sale due to company closing. WhatsApp on 9876543210. Original GST invoice available. Need 2000 advance booking token.",
+    "category": "laptops",
+    "subcategory": null,
+    "price": 35000.0,
+    "currency": "INR",
+    "location": "Indiranagar, Bangalore",
+    "posted_at": null,
+    "updated_at": null,
+    "product": {
+      "category": "laptops",
+      "subcategory": null,
+      "brand": "Apple",
+      "model": "MacBook Pro",
+      "variant": null,
+      "storage": "512GB",
+      "ram": "16GB",
+      "year": null,
+      "condition": null,
+      "color": null,
+      "attributes": {}
+    },
+    "seller": {
+      "seller_id": null,
+      "display_name": "OLX User",
+      "profile_url": null,
+      "location": "Indiranagar, Bangalore",
+      "account_age": null,
+      "listing_count": null,
+      "seller_type": null,
+      "verification_badges": [],
+      "business_claim": null
+    },
+    "claims": [
+      {
+        "claim_id": "CLM-OLX-000001-001",
+        "claim_text": "Claim in Urgent / Distress Sale: 'urgent'",
+        "source": "listing_description",
+        "status": "reported"
+      },
+      {
+        "claim_id": "CLM-OLX-000001-002",
+        "claim_text": "Claim in Warehouse / Corporate Clearance: 'company closing'",
+        "source": "listing_description",
+        "status": "reported"
+      },
+      {
+        "claim_id": "CLM-OLX-000001-003",
+        "claim_text": "Claim in Invoice / GST Bill Available: 'gst'",
+        "source": "listing_description",
+        "status": "reported"
+      },
+      {
+        "claim_id": "CLM-OLX-000001-004",
+        "claim_text": "Claim in Advance / Token Required: 'advance'",
+        "source": "listing_description",
+        "status": "reported"
+      },
+      {
+        "claim_id": "CLM-OLX-000001-005",
+        "claim_text": "Claim in WhatsApp / Off-Platform Contact: 'whatsapp'",
+        "source": "listing_description",
+        "status": "reported"
+      }
+    ],
+    "media": [],
+    "contact_signals": [
+      "whatsapp_contact_demanded"
+    ],
+    "discovery_context": {
+      "investigation_id": "INV-002",
+      "query": "manual_researcher_upload",
+      "category": null,
+      "search_url": null,
+      "run_id": null,
+      "discovered_at": "2026-09-20T13:28:55.415312Z"
+    },
+    "collection_metadata": {
+      "source": "olx",
+      "collection_method": "researcher_assisted",
+      "discovered_via": "targeted_suite",
+      "run_id": null,
+      "collected_at": "2026-09-20T13:28:55.415984Z",
+      "collector_version": "0.3.0"
+    }
+  },
+  "seller": {
+    "seller_id": null,
+    "display_name": "OLX User",
+    "profile_url": null,
+    "location": "Indiranagar, Bangalore",
+    "account_age": null,
+    "listing_count": null,
+    "seller_type": null,
+    "verification_badges": [],
+    "business_claim": null
+  },
+  "claims": [
+    {
+      "claim_id": "CLM-OLX-000001-001",
+      "claim_text": "Claim in Urgent / Distress Sale: 'urgent'",
+      "source": "listing_description",
+      "status": "reported"
+    },
+    {
+      "claim_id": "CLM-OLX-000001-002",
+      "claim_text": "Claim in Warehouse / Corporate Clearance: 'company closing'",
+      "source": "listing_description",
+      "status": "reported"
+    },
+    {
+      "claim_id": "CLM-OLX-000001-003",
+      "claim_text": "Claim in Invoice / GST Bill Available: 'gst'",
+      "source": "listing_description",
+      "status": "reported"
+    },
+    {
+      "claim_id": "CLM-OLX-000001-004",
+      "claim_text": "Claim in Advance / Token Required: 'advance'",
+      "source": "listing_description",
+      "status": "reported"
+    },
+    {
+      "claim_id": "CLM-OLX-000001-005",
+      "claim_text": "Claim in WhatsApp / Off-Platform Contact: 'whatsapp'",
+      "source": "listing_description",
+      "status": "reported"
+    }
+  ],
+  "media": [],
+  "signals": [
+    {
+      "signal_id": "SIG-OLX-000001-001",
+      "investigation_id": "INV-002",
+      "signal_type": "unusually_low_price",
+      "status": "observed",
+      "description": "Listing price of ₹35,000 is 58.8% below benchmark market median of ₹85,000 for this model.",
+      "evidence_ids": [
+        "EVID-OLX-000001-0001"
+      ],
+      "confidence": "high"
+    },
+    {
+      "signal_id": "SIG-OLX-000001-002",
+      "investigation_id": "INV-002",
+      "signal_type": "advance_payment",
+      "status": "observed",
+      "description": "Listing demands advance payment, token, or gate-pass fee before physical inspection.",
+      "evidence_ids": [
+        "EVID-OLX-000001-0002"
+      ],
+      "confidence": "high"
+    },
+    {
+      "signal_id": "SIG-OLX-000001-003",
+      "investigation_id": "INV-002",
+      "signal_type": "whatsapp_migration",
+      "status": "observed",
+      "description": "Listing explicitly directs buyer to communicate off-platform via WhatsApp or phone call.",
+      "evidence_ids": [
+        "EVID-OLX-000001-0002"
+      ],
+      "confidence": "high"
+    },
+    {
+      "signal_id": "SIG-OLX-000001-004",
+      "investigation_id": "INV-002",
+      "signal_type": "warehouse_clearance",
+      "status": "observed",
+      "description": "Listing claims corporate liquidation, office closing, or warehouse stock clearance.",
+      "evidence_ids": [
+        "EVID-OLX-000001-0002"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "signal_id": "SIG-OLX-000001-005",
+      "investigation_id": "INV-002",
+      "signal_type": "invoice_claim",
+      "status": "observed",
+      "description": "Listing claims availability of official GST invoice or defense canteen receipt.",
+      "evidence_ids": [
+        "EVID-OLX-000001-0002"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "signal_id": "SIG-OLX-000001-006",
+      "investigation_id": "INV-002",
+      "signal_type": "urgent_sale",
+      "status": "observed",
+      "description": "Listing creates time urgency by claiming urgent relocation or distress sale.",
+      "evidence_ids": [
+        "EVID-OLX-000001-0002"
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVID-OLX-000001-0001",
+      "investigation_id": "INV-002",
+      "source_type": "olx_listing",
+      "source_reference": "https://www.olx.in/item/macbook-pro-m2-clearance-iid-1804291",
+      "description": "Public OLX listing page 'Apple MacBook Pro M2 16GB 512GB' with observed price ₹35,000",
+      "evidence_text": "Title: Apple MacBook Pro M2 16GB 512GB | Price: ₹35000.0 | Location: Indiranagar, Bangalore",
+      "related_media_id": null,
+      "claim_or_observation": "Directly observed public listing on OLX marketplace",
+      "relationship_to_claim": "supports",
+      "verification_status": "unverified",
+      "collected_at": "2026-09-20T13:28:55.416159Z"
+    },
+    {
+      "evidence_id": "EVID-OLX-000001-0002",
+      "investigation_id": "INV-002",
+      "source_type": "listing_description",
+      "source_reference": "https://www.olx.in/item/macbook-pro-m2-clearance-iid-1804291",
+      "description": "Listing description text provided by the seller",
+      "evidence_text": "Urgent sale due to company closing. WhatsApp on 9876543210. Original GST invoice available. Need 2000 advance booking token.",
+      "related_media_id": null,
+      "claim_or_observation": "Seller-authored listing description text",
+      "relationship_to_claim": "supports",
+      "verification_status": "unverified",
+      "collected_at": "2026-09-20T13:28:55.416163Z"
+    }
+  ],
+  "verification_checks": [
+    {
+      "check_id": "CHK-OLX-000001-001",
+      "investigation_id": "INV-002",
+      "check_type": "business_identity",
+      "target_claim": "Company / Warehouse clearance claim",
+      "external_observation": "Public registry check not executed; business credentials remain unverified.",
+      "verification_status": "not_checked",
+      "notes": "Check official MCA / GST registry for claimed legal entity name before transacting."
+    },
+    {
+      "check_id": "CHK-OLX-000001-002",
+      "investigation_id": "INV-002",
+      "check_type": "invoice_authenticity",
+      "target_claim": "Original bill / GST invoice available",
+      "external_observation": "Invoice document authenticity cannot be verified from visual listing photos alone.",
+      "verification_status": "not_checked",
+      "notes": "Inspect physical invoice and cross-verify seller GSTIN on the official GST portal."
+    }
+  ],
+  "uncertainties": [
+    "Corporate liquidation claim not independently verified.",
+    "Claimed invoice authenticity cannot be established without physical or registry check."
+  ],
+  "next_steps": [
+    "Verify claimed business entity registration in official MCA / GST portals.",
+    "Inspect physical invoice and verify seller GSTIN on the official government GST portal.",
+    "Verify device serial number / IMEI on official manufacturer portal (e.g. Apple Check Coverage) during physical inspection.",
+    "Strictly avoid transferring any advance booking token or gate-pass fee before physical item inspection in a public location."
+  ],
+  "human_review_status": "unreviewed",
+  "created_at": "2026-09-20T13:28:55.416177Z",
+  "updated_at": "2026-09-20T13:28:55.416177Z"
+}

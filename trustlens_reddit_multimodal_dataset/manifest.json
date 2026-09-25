@@ -1,0 +1,19 @@
+{
+  "dataset_name": "TrustLens Reddit Multimodal Dataset",
+  "version": "1.0.0",
+  "run_id": "MEDIA-RUN-360B7134",
+  "created_at": "2026-09-20T12:38:27.827876+00:00",
+  "posts_total": 178,
+  "posts_with_media": 73,
+  "posts_without_media": 105,
+  "total_media_assets": 330,
+  "failed_media_assets": 0,
+  "structure": {
+    "posts_dir": "posts/<post_id>/",
+    "post_metadata": "posts/<post_id>/post_metadata.json",
+    "media_dir": "posts/<post_id>/media/",
+    "post_media_map": "post_media_map.json",
+    "media_manifest": "media_manifest.jsonl",
+    "download_report": "download_report.json"
+  }
+}

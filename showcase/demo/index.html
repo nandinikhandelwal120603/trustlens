@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLens — Multimodal Marketplace Fraud Intelligence Showcase</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #111726;
+      --surface-border: #1e293b;
+      --card-bg: #162032;
+      --card-hover: #1c2940;
+      --text: #94a3b8;
+      --heading: #f8fafc;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #f43f5e;
+      --purple: #a855f7;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    header {
+      background: rgba(17, 23, 38, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--heading);
+      letter-spacing: -0.5px;
+    }
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .header-nav {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .nav-btn {
+      background: #1e293b;
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+    /* Hero Banner */
+    .hero {
+      text-align: center;
+      padding: 40px 0 32px;
+    }
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero .lead {
+      font-size: 18px;
+      color: #cbd5e1;
+      max-width: 720px;
+      margin: 0 auto 12px;
+    }
+    .hero .tagline {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 32px 0 40px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+    .stat-num {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -1px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+    .stat-desc {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    /* Step Navigation Bar */
+    .story-nav {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 32px;
+      overflow-x: auto;
+      gap: 4px;
+    }
+    .step-pill {
+      flex: 1;
+      min-width: 90px;
+      background: none;
+      border: none;
+      color: var(--text);
+      padding: 10px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .step-pill:hover {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--heading);
+    }
+    .step-pill.active {
+      background: var(--accent);
+      color: #090d16;
+      font-weight: 700;
+    }
+    /* Screen Views */
+    .screen {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .screen.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .screen-header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 16px;
+    }
+    .screen-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .screen-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--heading);
+      margin-top: 4px;
+    }
+    .screen-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      max-width: 800px;
+      margin-top: 6px;
+    }
+    /* Card Component */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-observed { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-derived { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-candidate { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-unverified { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .badge-unknown { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+    /* Listing Preview */
+    .listing-box {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .listing-img-box {
+      width: 140px;
+      height: 140px;
+      background: #1e293b;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 12px;
+      text-align: center;
+      padding: 8px;
+      border: 1px dashed #334155;
+    }
+    .listing-meta {
+      flex: 1;
+      min-width: 260px;
+    }
+    .listing-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 6px;
+    }
+    .listing-price {
+      font-size: 24px;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+    .listing-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    /* Grid 2 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    /* Callout */
+    .callout {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid var(--surface-border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    th {
+      background: #1e293b;
+      color: var(--heading);
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background: #0f172a;
+    }
+    /* Controls */
+    .stepper-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--surface-border);
+    }
+    .btn {
+      background: var(--accent);
+      color: #090d16;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #1e293b;
+      color: var(--heading);
+    }
+    .btn-secondary:hover {
+      background: #334155;
+    }
+    /* Graph Container */
+    #graph-container {
+      width: 100%;
+      height: 380px;
+      background: #0b1120;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    svg.graph-svg {
+      width: 100%;
+      height: 100%;
+    }
+    .node-circle {
+      cursor: pointer;
+      transition: transform 0.2s, stroke-width 0.2s;
+    }
+    .node-circle:hover {
+      stroke-width: 4px;
+      stroke: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-logo">TL</div>
+    <div>
+      <div class="brand-title">TrustLens</div>
+      <div class="brand-subtitle">Multimodal Marketplace Fraud Intelligence</div>
+    </div>
+  </div>
+  <div class="header-nav">
+    <a href="../architecture/trustlens_architecture.md" class="nav-btn">Architecture</a>
+    <a href="../portfolio/TRUSTLENS_CASE_STUDY.md" class="nav-btn">Case Study</a>
+    <a href="../report/TRUSTLENS_RESEARCH_REPORT.md" class="nav-btn">Research Report</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>TRUSTLENS</h1>
+    <div class="lead">An evidence-first research system investigating suspicious marketplace listings across price, text, image forensics, OCR, network graphs, and statistical novelty.</div>
+    <div class="tagline">"Turning marketplace listings into evidence, relationships, and explainable research signals."</div>
+  </section>
+
+  <!-- FROZEN NUMBERS STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-num">2,980</div>
+      <div class="stat-label">Canonical Listings</div>
+      <div class="stat-desc">100% deduplicated cohort</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2,280</div>
+      <div class="stat-label">Media Assets Analyzed</div>
+      <div class="stat-desc">Fingerprinted, DINO & OCR tested</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">213</div>
+      <div class="stat-label">Multi-Signal Listing Pairs</div>
+      <div class="stat-desc">≥2 independent evidence layers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">124</div>
+      <div class="stat-label">Automated Tests Passed</div>
+      <div class="stat-desc">Continuous verification (0 regressions)</div>
+    </div>
+  </div>
+
+  <!-- STEP NAVIGATION -->
+  <nav class="story-nav" id="storyNav">
+    <button class="step-pill active" onclick="goToStep(1)">1. Problem</button>
+    <button class="step-pill" onclick="goToStep(2)">2. Evidence</button>
+    <button class="step-pill" onclick="goToStep(3)">3. Image Reuse</button>
+    <button class="step-pill" onclick="goToStep(4)">4. Multimodal</button>
+    <button class="step-pill" onclick="goToStep(5)">5. AI Detection</button>
+    <button class="step-pill" onclick="goToStep(6)">6. Network</button>
+    <button class="step-pill" onclick="goToStep(7)">7. Novelty</button>
+    <button class="step-pill" onclick="goToStep(8)">8. Multi-Signal</button>
+    <button class="step-pill" onclick="goToStep(9)">9. Case Study</button>
+    <button class="step-pill" onclick="goToStep(10)">10. Limitations</button>
+  </nav>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 1: THE PROBLEM -->
+  <!-- ===================================================================== -->
+  <section class="screen active" id="screen-1">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 1 of 10 — Market Observation</div>
+      <div class="screen-title">The Marketplace Observation</div>
+      <div class="screen-desc">A consumer electronics listing is captured in real time. Rather than computing an opaque "scam score", TrustLens triggers structured forensic ingestion.</div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span class="badge badge-candidate">Research Observation Detected</span>
+        <span style="font-size: 12px; color: #64748b;">Listing ID: 1856180547 • Captured in Delhi</span>
+      </div>
+
+      <div class="listing-box">
+        <div class="listing-img-box">
+          <div style="font-weight: 700; color: #94a3b8; margin-bottom: 4px;">PHOTO CAPTURED</div>
+          <div style="font-size: 11px;">MED-1856180547-0</div>
+          <div style="font-size: 10px; color: #475569; margin-top: 6px;">Packaging Box Displayed</div>
+        </div>
+        <div class="listing-meta">
+          <div class="listing-title">iPhone 13 128gb sealed pack with bill</div>
+          <div class="listing-price">₹18,500 <span style="font-size: 13px; color: #64748b; font-weight: normal;">(Comparable Median: ₹38,500)</span></div>
+          <div style="font-size: 13px; color: #cbd5e1; margin-bottom: 12px;">"Brand new condition sealed pack. Urgent cash requirement. Contact on WhatsApp 98XXXXXXXX only."</div>
+          <div class="listing-tags">
+            <span class="badge badge-derived">Price: 51.9% Below Median</span>
+            <span class="badge badge-derived">Condition Cues: Sealed Pack</span>
+            <span class="badge badge-derived">Contact Redirection: WhatsApp</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 20px;">
+        <div class="callout-title">Core Research Question</div>
+        Is this listing an unauthorized duplicate, an unreleased or mislabeled model, a damaged unit, or a retail marketing template? TrustLens does not make accusations—it gathers evidence.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 2: EVIDENCE CARDS -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-2">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 2 of 10 — Multi-Modal Evidence Ingestion</div>
+      <div class="screen-title">Forensic Evidence Breakdown</div>
+      <div class="screen-desc">Every finding is strictly classified into the TrustLens Evidence Hierarchy: Observed, Derived, Candidate, Unverified, or Unknown.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h3 style="color:var(--heading); font-size:16px;">Price Analysis</h3>
+          <span class="badge badge-derived">Derived</span>
+        </div>
+        <p style="font-size:13px;">Listing price of ₹18,500 is <strong>51.9% below</strong> the verified comparable model median (₹38,500 across 350 iPhone 13 listings). Exceeds the -35% outlier threshold.</p>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h3 style="color:var(--heading); font-size:16px;">Text Intelligence</h3>
+          <span class="badge badge-derived">Derived</span>
+        </div>
+        <p style="font-size:13px;">Deterministic regex parser identified <strong>contact-redirection language</strong> ("WhatsApp only") and urgent clearance cues ("urgent cash requirement").</p>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h3 style="color:var(--heading); font-size:16px;">Image Intelligence</h3>
+          <span class="badge badge-candidate">Candidate</span>
+        </div>
+        <p style="font-size:13px;">DINOv2 deep representation identified 4 nearest neighbors with cosine similarity &gt; 0.85 across Delhi and Mumbai listings. Cryptographic SHA-256 hash is unique.</p>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h3 style="color:var(--heading); font-size:16px;">OCR Cross-Verification</h3>
+          <span class="badge badge-candidate">Candidate</span>
+        </div>
+        <p style="font-size:13px;">Tesseract OCR detected the string <strong>"iPhone 13 Mini"</strong> printed on the packaging box. Direct mismatch with listing title claim ("iPhone 13").</p>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h3 style="color:var(--heading); font-size:16px;">Network Intelligence</h3>
+          <span class="badge badge-observed">Observed</span>
+        </div>
+        <p style="font-size:13px;">Listing is connected to Component COMP-042 via title lexical similarity and shared geographic market corridors across Northern India.</p>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h3 style="color:var(--heading); font-size:16px;">Seller Metadata</h3>
+          <span class="badge badge-unknown">Unknown</span>
+        </div>
+        <p style="font-size:13px;">Seller account age, verification badges, and physical location are unobserved in the public search-card capture layer. Cannot infer seller identity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 3: IMAGE REUSE -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-3">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 3 of 10 — Media Forensics</div>
+      <div class="screen-title">Exact Reuse vs. Deep Visual Similarity</div>
+      <div class="screen-desc">TrustLens separates cryptographic byte-level identity from semantic visual affinity. Neither automatically establishes fraud.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3 style="color:#34d399; font-size:16px;">Exact Binary Reuse (SHA-256)</h3>
+          <span class="badge badge-observed">Observed (164 Pairs)</span>
+        </div>
+        <div style="background:#0f172a; padding:12px; border-radius:8px; font-family:monospace; font-size:11px; margin-bottom:12px; word-break:break-all;">
+          Listing A (1853431683; Thane) &lt;-- SHA-256: f6c0eb2d8477... --&gt; Listing B (1853844217; Mumbai)
+        </div>
+        <p style="font-size:13px; color:#cbd5e1;">Identical image binaries observed across different city cards. Reflects syndication, multi-branch store listings, or photo re-use.</p>
+        <div class="callout" style="border-left-color:#34d399; margin-top:12px;">
+          <strong>Finding:</strong> 78.0% of exact reuse pairs span different metropolitan cities.
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3 style="color:#38bdf8; font-size:16px;">Deep Visual Similarity (DINOv2)</h3>
+          <span class="badge badge-candidate">Candidate (9,492 Pairs)</span>
+        </div>
+        <div style="background:#0f172a; padding:12px; border-radius:8px; font-family:monospace; font-size:11px; margin-bottom:12px; word-break:break-all;">
+          Listing C (1854413649) &lt;-- Cosine: 0.884 (DINOv2) --&gt; Listing D (1852565327) [pHash Distance: 18]
+        </div>
+        <p style="font-size:13px; color:#cbd5e1;">Different SHA-256 hashes and distinct camera angles, but vision transformers detect identical product poses and studio backgrounds.</p>
+        <div class="callout" style="border-left-color:#38bdf8; margin-top:12px;">
+          <strong>Finding:</strong> DINO captures visual affinity where perceptual hashing (pHash) fails due to lighting or perspective changes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 4: MULTIMODAL INCONSISTENCIES -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-4">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 4 of 10 — Cross-Modal Verification</div>
+      <div class="screen-title">OCR Claim Verification & Inconsistencies</div>
+      <div class="screen-desc">OCR text extracted from packaging boxes and device screens is cross-referenced with text claims in listing titles.</div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-around; align-items:center; padding:20px; background:#0f172a; border-radius:8px; flex-wrap:wrap; gap:16px;">
+        <div style="text-align:center;">
+          <div style="font-size:12px; color:#64748b; text-transform:uppercase;">Listing Title Claim</div>
+          <div style="font-size:20px; font-weight:700; color:var(--heading); margin-top:4px;">"iPhone 13 128"</div>
+          <div style="font-size:11px; color:#38bdf8; margin-top:2px;">Declared Model: Standard iPhone 13</div>
+        </div>
+        <div style="font-size:24px; color:#f43f5e; font-weight:800;">≠</div>
+        <div style="text-align:center;">
+          <div style="font-size:12px; color:#64748b; text-transform:uppercase;">Image OCR Text Detected</div>
+          <div style="font-size:20px; font-weight:700; color:#f43f5e; margin-top:4px;">"iPhone 13 Mini"</div>
+          <div style="font-size:11px; color:#64748b; margin-top:2px;">Packaging Box OCR Confidence: 48.8%</div>
+        </div>
+        <div style="text-align:center;">
+          <span class="badge badge-candidate">Multimodal Inconsistency Candidate</span>
+          <div style="font-size:12px; color:#cbd5e1; margin-top:6px;">Status: Requires Human Review</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div style="background:#1e293b; padding:16px; border-radius:8px;">
+          <h4 style="color:var(--heading); font-size:14px; margin-bottom:6px;">Observed Inconsistencies (68 Candidates)</h4>
+          <ul style="font-size:13px; padding-left:18px; line-height:1.7;">
+            <li><strong>66 Shared-Image Claim Drifts:</strong> Pairs sharing identical image binaries but advertising different storage capacities or models.</li>
+            <li><strong>1 Model Mismatch:</strong> Title states iPhone 13; packaging indicates iPhone 13 Mini.</li>
+            <li><strong>1 Demo Lock Screen:</strong> Commercial listing image displays "ACTIVATION LOCK".</li>
+          </ul>
+        </div>
+        <div style="background:#1e293b; padding:16px; border-radius:8px;">
+          <h4 style="color:var(--heading); font-size:14px; margin-bottom:6px;">Scientific Guardrail</h4>
+          <p style="font-size:13px; color:#cbd5e1;">A detected mismatch is an <strong>unverified candidate</strong>. It may reflect seller error, an uploaded stock box image, or data capture noise. It does NOT automatically prove deceptive intent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 5: AI IMAGE DETECTION -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-5">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 5 of 10 — Synthetic Image Evaluation</div>
+      <div class="screen-title">Dual-Detector AI Evaluation & Disagreements</div>
+      <div class="screen-desc">2,280 images were evaluated across two independent vision transformers (ViT-Base & Swin-Base). Single-detector evaluation is fundamentally brittle.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--heading); font-size:16px; margin-bottom:12px;">Mutual Candidate Case (1 of 6)</h3>
+        <div style="background:#0f172a; padding:14px; border-radius:8px; font-size:13px; margin-bottom:12px;">
+          <div><strong>Listing ID:</strong> 1842975565 (Bengaluru)</div>
+          <div><strong>Title:</strong> "Iphone 13 pro max for exchange"</div>
+          <div><strong>Image Media:</strong> MED-1842975565-0</div>
+        </div>
+        <div style="display:flex; gap:16px; margin-bottom:12px;">
+          <div style="flex:1; background:#1e293b; padding:10px; border-radius:6px; text-align:center;">
+            <div style="font-size:11px; color:#94a3b8;">Detector A (ViT)</div>
+            <div style="font-size:20px; font-weight:800; color:#f43f5e;">0.975</div>
+          </div>
+          <div style="flex:1; background:#1e293b; padding:10px; border-radius:6px; text-align:center;">
+            <div style="font-size:11px; color:#94a3b8;">Detector B (Swin)</div>
+            <div style="font-size:20px; font-weight:800; color:#f43f5e;">0.871</div>
+          </div>
+        </div>
+        <p style="font-size:12px; color:#cbd5e1;">Both detectors independently crossed the 0.70 threshold. Manual inspection revealed a heavily rendered 3D product graphic rather than a photorealistic deepfake.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--heading); font-size:16px; margin-bottom:12px;">Full Cohort Consensus (2,280 Images)</h3>
+        <table>
+          <thead>
+            <tr><th>Consensus Class</th><th>Count</th><th>% Share</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Agreement Real</td><td>958</td><td>42.0%</td></tr>
+            <tr><td>Borderline Zone</td><td>757</td><td>33.2%</td></tr>
+            <tr><td style="color:#fbbf24;">Detector Disagreement</td><td>559</td><td>24.5%</td></tr>
+            <tr><td style="color:#f43f5e; font-weight:700;">Mutual AI Candidates</td><td>6</td><td>0.26%</td></tr>
+          </tbody>
+        </table>
+        <div class="callout" style="border-left-color:#fbbf24; margin-top:12px;">
+          <strong>Critical Finding:</strong> In 24.5% of images, Swin-Base classified as an AI candidate while ViT-Base scored as real. Single-model AI detection produces unacceptable false positives.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 6: RELATIONSHIP NETWORK -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-6">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 6 of 10 — Graph Topology</div>
+      <div class="screen-title">Marketplace Evidence Network</div>
+      <div class="screen-desc">5,709 entity nodes and 21,395 relationship edges connect listings across shared images, text, OCR phrases, and geographic corridors.</div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-weight:700; color:var(--heading); font-size:14px;">Interactive Subgraph: Syndicated Service Provider (Component COMP-014)</span>
+        <span class="badge badge-observed">Observed Graph</span>
+      </div>
+
+      <div id="graph-container">
+        <svg class="graph-svg" viewBox="0 0 700 360">
+          <!-- Edges -->
+          <line x1="220" y1="180" x2="350" y2="100" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4" />
+          <line x1="480" y1="180" x2="350" y2="100" stroke="#38bdf8" stroke-width="2" />
+          <line x1="220" y1="180" x2="480" y2="180" stroke="#a855f7" stroke-width="2" />
+          <line x1="220" y1="180" x2="350" y2="260" stroke="#f59e0b" stroke-width="2" />
+          <line x1="480" y1="180" x2="350" y2="260" stroke="#f59e0b" stroke-width="2" />
+          <line x1="220" y1="180" x2="120" y2="180" stroke="#64748b" stroke-width="1.5" />
+          <line x1="480" y1="180" x2="580" y2="180" stroke="#64748b" stroke-width="1.5" />
+
+          <!-- Nodes -->
+          <!-- Listing 1 -->
+          <circle class="node-circle" cx="220" cy="180" r="22" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5" />
+          <text x="220" y="184" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">L: 185368</text>
+          <text x="220" y="214" text-anchor="middle" fill="#94a3b8" font-size="10">Nashik (₹999)</text>
+
+          <!-- Listing 2 -->
+          <circle class="node-circle" cx="480" cy="180" r="22" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5" />
+          <text x="480" y="184" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">L: 185419</text>
+          <text x="480" y="214" text-anchor="middle" fill="#94a3b8" font-size="10">Mumbai (₹1,499)</text>
+
+          <!-- Shared SHA Image -->
+          <circle class="node-circle" cx="350" cy="100" r="18" fill="#1e293b" stroke="#34d399" stroke-width="2" />
+          <text x="350" y="104" text-anchor="middle" fill="#34d399" font-size="8" font-weight="700">SHA-256</text>
+          <text x="350" y="76" text-anchor="middle" fill="#34d399" font-size="10">Identical Image</text>
+
+          <!-- Shared OCR Phrase -->
+          <circle class="node-circle" cx="350" cy="260" r="18" fill="#1e293b" stroke="#f59e0b" stroke-width="2" />
+          <text x="350" y="264" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="700">OCR</text>
+          <text x="350" y="294" text-anchor="middle" fill="#f59e0b" font-size="10">"Software Service"</text>
+
+          <!-- Geo Nodes -->
+          <circle class="node-circle" cx="120" cy="180" r="14" fill="#0f172a" stroke="#64748b" stroke-width="1.5" />
+          <text x="120" y="183" text-anchor="middle" fill="#94a3b8" font-size="8">Nashik</text>
+
+          <circle class="node-circle" cx="580" cy="180" r="14" fill="#0f172a" stroke="#64748b" stroke-width="1.5" />
+          <text x="580" y="183" text-anchor="middle" fill="#94a3b8" font-size="8">Mumbai</text>
+
+          <!-- Legend overlay -->
+          <rect x="15" y="15" width="180" height="90" rx="6" fill="#0f172a" stroke="#1e293b" />
+          <text x="25" y="32" fill="#fff" font-size="10" font-weight="700">EDGE TYPES</text>
+          <line x1="25" y1="45" x2="55" y2="45" stroke="#34d399" stroke-width="2" />
+          <text x="65" y="48" fill="#94a3b8" font-size="9">Exact Image Reuse</text>
+          <line x1="25" y1="62" x2="55" y2="62" stroke="#a855f7" stroke-width="2" />
+          <text x="65" y="65" fill="#94a3b8" font-size="9">Text Lexical Similarity</text>
+          <line x1="25" y1="79" x2="55" y2="79" stroke="#f59e0b" stroke-width="2" />
+          <text x="65" y="82" fill="#94a3b8" font-size="9">Shared OCR Phrase</text>
+        </svg>
+      </div>
+
+      <p style="font-size:13px; color:#cbd5e1; margin-top:14px;">This cluster exhibits <strong>4 independent forensic layers</strong> linking listings across Nashik and Mumbai. It represents a commercial service syndication corridor, not necessarily malicious fraud.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 7: STATISTICAL NOVELTY -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-7">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 7 of 10 — Unsupervised Modeling</div>
+      <div class="screen-title">Multivariate Statistical Novelty (Phase J)</div>
+      <div class="screen-desc">Isolation Forest models evaluated listings across 4 independent feature spaces at nominal contamination c=0.05.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--heading); font-size:16px; margin-bottom:12px;">Persistence Across Feature Spaces</h3>
+        <table>
+          <thead>
+            <tr><th>Persistence Category</th><th>Listings Count</th><th>% Cohort</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Inliers (0 experiments)</td><td>2,574</td><td>86.38%</td></tr>
+            <tr><td>Single-Space Outliers (1 exp)</td><td>270</td><td>9.06%</td></tr>
+            <tr><td>Persistent in 2 experiments</td><td>88</td><td>2.95%</td></tr>
+            <tr><td>Persistent in 3 experiments</td><td>45</td><td>1.51%</td></tr>
+            <tr style="background:#1e1b4b;"><td style="color:#a855f7; font-weight:700;">Persistent in ALL 4 Experiments</td><td>3</td><td>0.10%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--heading); font-size:16px; margin-bottom:12px;">Persistent in All 4 Spaces (The 3 Outliers)</h3>
+        <div style="font-size:13px; line-height:1.7;">
+          <div style="background:#0f172a; padding:10px; border-radius:6px; margin-bottom:8px;">
+            <strong>1. Listing 1854083889 (Bhuj):</strong> PS5 Pro 2TB console bundle priced at ₹110,000 appearing within controller search query (extreme bundle price outlier).
+          </div>
+          <div style="background:#0f172a; padding:10px; border-radius:6px; margin-bottom:8px;">
+            <strong>2. Listing 1855231431 (Bengaluru):</strong> PS5 Controller at ₹2,200 with unusual cross-modal feature distribution.
+          </div>
+          <div style="background:#0f172a; padding:10px; border-radius:6px;">
+            <strong>3. Listing 1856141038 (Bhiwandi):</strong> "I phone 17 pro" at ₹350 (unreleased model name + placeholder price outlier).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 8: MULTI-SIGNAL EVIDENCE -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-8">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 8 of 10 — Cross-Corroboration</div>
+      <div class="screen-title">213 Multi-Signal Listing Pairs</div>
+      <div class="screen-desc">Multi-signal pairs identify listings connected through ≥2 independent forensic layers. Evidence count is an integer count, NOT a risk score.</div>
+    </div>
+
+    <div class="card">
+      <div class="stats-bar" style="margin:0 0 20px;">
+        <div class="stat-card" style="padding:14px;">
+          <div class="stat-num" style="font-size:24px; color:#f43f5e;">5</div>
+          <div class="stat-label">4 Evidence Layers</div>
+        </div>
+        <div class="stat-card" style="padding:14px;">
+          <div class="stat-num" style="font-size:24px; color:#fbbf24;">63</div>
+          <div class="stat-label">3 Evidence Layers</div>
+        </div>
+        <div class="stat-card" style="padding:14px;">
+          <div class="stat-num" style="font-size:24px; color:#38bdf8;">145</div>
+          <div class="stat-label">2 Evidence Layers</div>
+        </div>
+      </div>
+
+      <h3 style="color:var(--heading); font-size:15px; margin-bottom:10px;">Top Cross-Corroborated Research Candidates</h3>
+      <table>
+        <thead>
+          <tr><th>Listing A</th><th>Listing B</th><th>Product</th><th>Geographies</th><th>Active Layers</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>1853686065</code></td>
+            <td><code>1854199139</code></td>
+            <td>Tech Service</td>
+            <td>Nashik / Mumbai</td>
+            <td><span class="badge badge-observed">4 Layers: SHA + Text + OCR + DINO</span></td>
+            <td>OBSERVED_DUPLICATION</td>
+          </tr>
+          <tr>
+            <td><code>1854321167</code></td>
+            <td><code>1854321649</code></td>
+            <td>iPhone 17 Pro Max</td>
+            <td>Delhi / Delhi</td>
+            <td><span class="badge badge-observed">4 Layers: SHA + Text + OCR + DINO</span></td>
+            <td>OBSERVED_DUPLICATION</td>
+          </tr>
+          <tr>
+            <td><code>1853660829</code></td>
+            <td><code>1854122590</code></td>
+            <td>PS5 Bundle</td>
+            <td>Rajpur / Bankra</td>
+            <td><span class="badge badge-observed">4 Layers: SHA + Text + OCR + DINO</span></td>
+            <td>OBSERVED_DUPLICATION</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 9: CASE STUDY -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-9">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 9 of 10 — In-Depth Investigation</div>
+      <div class="screen-title">Investigator Case Study: The Cross-City Service Cluster</div>
+      <div class="screen-desc">A structured review board demonstrating how an investigator analyzes independent signals without automated accusations.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4 style="color:#38bdf8; font-size:14px; text-transform:uppercase; margin-bottom:8px;">What We Saw</h4>
+        <p style="font-size:13px; color:#cbd5e1;">Two listings advertising identical mobile software repair services across Nashik (₹999) and Mumbai (₹1,499), published within the same capture envelope.</p>
+
+        <h4 style="color:#34d399; font-size:14px; text-transform:uppercase; margin:16px 0 8px;">What The System Found</h4>
+        <ul style="font-size:13px; color:#cbd5e1; padding-left:18px; line-height:1.6;">
+          <li>Exact SHA-256 binary match on promotional flyer image.</li>
+          <li>High lexical similarity (Jaccard similarity &gt; 0.85).</li>
+          <li>Identical OCR banner phrase extracted by Tesseract.</li>
+          <li>DINOv2 embedding cosine similarity &gt; 0.95.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 style="color:#fbbf24; font-size:14px; text-transform:uppercase; margin-bottom:8px;">What Remains Unknown</h4>
+        <ul style="font-size:13px; color:#cbd5e1; padding-left:18px; line-height:1.6;">
+          <li>Whether a legitimate repair business operates authorized branches in both cities.</li>
+          <li>Whether the listings belong to a single merchant or an unauthorized copycat.</li>
+          <li>Whether physical customer service transactions occurred.</li>
+        </ul>
+
+        <h4 style="color:#a855f7; font-size:14px; text-transform:uppercase; margin:16px 0 8px;">Why It Deserves Human Review</h4>
+        <p style="font-size:13px; color:#cbd5e1;">Multi-modal convergence confirms that this is not an isolated random post. It isolates a commercial syndication template spanning metropolitan regions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SCREEN 10: LIMITATIONS -->
+  <!-- ===================================================================== -->
+  <section class="screen" id="screen-10">
+    <div class="screen-header">
+      <div class="screen-tag">Screen 10 of 10 — Scientific Honesty</div>
+      <div class="screen-title">Research Boundaries & Methodological Limits</div>
+      <div class="screen-desc">TrustLens explicitly documents what the dataset and models cannot establish. Limitations are treated as core engineering constraints.</div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>System Boundary</th><th>Observed Reality</th><th>Definitive Scientific Boundary</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Seller Identity</strong></td>
+            <td>Unobserved in search-card capture</td>
+            <td>Cannot determine common ownership, account coordination, or persistent seller reputation.</td>
+          </tr>
+          <tr>
+            <td><strong>Descriptions</strong></td>
+            <td>Not available in search cards</td>
+            <td>All linguistic intelligence is derived exclusively from listing titles.</td>
+          </tr>
+          <tr>
+            <td><strong>Ground Truth Labels</strong></td>
+            <td>No fraud outcome database</td>
+            <td>No supervised fraud classifier can be trained. Models isolate <strong>statistical novelty</strong>, not guilt.</td>
+          </tr>
+          <tr>
+            <td><strong>AI Image Provenance</strong></td>
+            <td>No local ground truth</td>
+            <td>Dual detectors yield <strong>candidate hypotheses</strong>. Disagreements highlight reliance limits.</td>
+          </tr>
+          <tr>
+            <td><strong>Marketplace Scope</strong></td>
+            <td>Targeted electronics queries</td>
+            <td>Findings reflect a targeted electronics sample and cannot be generalized to all OLX transactions.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Final Call to Action -->
+      <div style="text-align:center; padding:32px 0 16px; margin-top:24px; border-top:1px solid var(--surface-border);">
+        <div style="font-size:28px; font-weight:800; color:var(--heading); letter-spacing:-0.5px;">FROM "IS THIS A SCAM?"</div>
+        <div style="font-size:18px; font-weight:700; color:var(--accent); margin:6px 0 16px;">TO "WHAT EVIDENCE SHOULD WE VERIFY?"</div>
+        <p style="font-size:14px; color:#94a3b8; max-width:640px; margin:0 auto 20px;">TrustLens replaces subjective suspicion with explainable, multi-modal evidence. The research pipeline is frozen and verified across Phases A through K.</p>
+        <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+          <a href="../report/TRUSTLENS_RESEARCH_REPORT.md" class="btn">Read Full Research Report</a>
+          <a href="../architecture/trustlens_architecture.md" class="btn btn-secondary">Inspect Architecture</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP CONTROLS -->
+  <div class="stepper-controls">
+    <button class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" disabled>← Previous Screen</button>
+    <span style="font-size:12px; font-weight:600; color:#64748b;" id="stepIndicator">Screen 1 of 10</span>
+    <button class="btn" id="nextBtn" onclick="changeStep(1)">Next Screen →</button>
+  </div>
+
+</div>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 10;
+
+  function updateUI() {
+    for (let i = 1; i <= totalSteps; i++) {
+      const screen = document.getElementById('screen-' + i);
+      if (screen) screen.classList.toggle('active', i === currentStep);
+    }
+    const pills = document.querySelectorAll('.step-pill');
+    pills.forEach((pill, idx) => {
+      pill.classList.toggle('active', idx + 1 === currentStep);
+    });
+
+    document.getElementById('prevBtn').disabled = (currentStep === 1);
+    document.getElementById('nextBtn').disabled = (currentStep === totalSteps);
+    document.getElementById('stepIndicator').innerText = `Screen ${currentStep} of ${totalSteps}`;
+
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+  }
+
+  function goToStep(step) {
+    if (step >= 1 && step <= totalSteps) {
+      currentStep = step;
+      updateUI();
+    }
+  }
+
+  function changeStep(delta) {
+    goToStep(currentStep + delta);
+  }
+</script>
+</body>
+</html>

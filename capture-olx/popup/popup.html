@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLens OLX Collector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <div class="shield-icon">🛡️</div>
+        <div>
+          <div class="app-title">TRUSTLENS</div>
+          <div class="app-subtitle">OLX COLLECTOR</div>
+        </div>
+      </div>
+      <span class="version-badge">v1.1</span>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- Status & Detection Section -->
+    <section class="status-section">
+      <div class="status-label">Status</div>
+      
+      <!-- State: Search page -->
+      <div id="status-search" class="status-card status-success hidden">
+        <div class="status-icon">✓</div>
+        <div class="status-content">
+          <div class="status-heading">OLX search page detected</div>
+          <div class="status-detail" id="search-detail">Query: <span id="query-name">-</span> • <span id="cards-count">0</span> cards visible</div>
+        </div>
+      </div>
+
+      <!-- State: Listing page -->
+      <div id="status-listing" class="status-card status-success hidden">
+        <div class="status-icon">✓</div>
+        <div class="status-content">
+          <div class="status-heading">OLX listing page detected</div>
+          <div class="status-detail" id="listing-detail">ID: <span id="listing-id">-</span></div>
+        </div>
+      </div>
+
+      <!-- State: Not OLX / Unsupported -->
+      <div id="status-unsupported" class="status-card status-warning hidden">
+        <div class="status-icon">⚠</div>
+        <div class="status-content">
+          <div class="status-heading">Not an OLX page</div>
+          <div class="status-detail">Open an OLX search or listing page to capture.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primary Capture Action -->
+    <section class="action-section">
+      <button id="btn-capture" class="btn-primary" disabled>
+        <span class="btn-icon">⚡</span>
+        <span id="btn-capture-text">Detecting Page...</span>
+      </button>
+
+      <!-- Auto-Load Continuous Collector (Search Page Only) -->
+      <div id="auto-load-card" class="auto-load-container hidden">
+        <div class="auto-load-header">
+          <span class="auto-load-title">🔄 Auto-Load & Collect</span>
+          <span id="auto-load-badge" class="badge-idle">IDLE</span>
+        </div>
+        <div class="auto-load-desc">
+          Clicks "Load More" every 5s, collects newly rendered cards, and saves them continuously.
+        </div>
+        <button id="btn-auto-load" class="btn-auto-start">
+          <span class="btn-icon">▶</span>
+          <span id="btn-auto-load-text">Start Auto-Load (5s)</span>
+        </button>
+        <div id="auto-load-metrics" class="auto-load-metrics hidden">
+          <div class="metric-item">Batch: <strong id="auto-iteration">0</strong></div>
+          <div class="metric-item">Collected: <strong id="auto-collected">0</strong></div>
+          <div class="metric-item">Next: <strong id="auto-countdown">5s</strong></div>
+        </div>
+      </div>
+
+      <div id="capture-tip" class="helper-text hidden">
+        Tip: Auto-Load scrolls down and clicks "Load More" automatically every 5s.
+      </div>
+      <div id="feedback-msg" class="feedback-toast hidden"></div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Stats & Export Section -->
+    <section class="storage-section">
+      <div class="stats-row">
+        <span class="stats-label">Captured this session:</span>
+        <span class="stats-value" id="session-count">0 listings</span>
+      </div>
+      <div class="stats-subrow">
+        <span class="stats-subdetail" id="envelopes-count">0 capture batches saved</span>
+      </div>
+
+      <div class="button-group">
+        <button id="btn-export" class="btn-secondary" disabled>
+          <span>📥 Download JSON</span>
+        </button>
+        <button id="btn-clear" class="btn-danger" title="Clear all local captures" disabled>
+          <span>🗑️ Clear</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Footer / Research Disclosure -->
+    <footer class="footer">
+      <div class="footer-badge">Local-only researcher capture</div>
+      <div class="footer-note">No remote tracking • Continuous 5s collector</div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../schemas/listing-schema.js"></script>
+  <script src="../storage/indexeddb.js"></script>
+  <script src="../export/exporter.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

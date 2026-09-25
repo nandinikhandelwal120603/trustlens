@@ -1,0 +1,50 @@
+[
+  {
+    "investigation_id": "INV-001",
+    "title": "Army / Defence Officer Relocation & Canteen Gate-Pass Fraud",
+    "target_category": "car / bike / laptop",
+    "target_patterns": [
+      "army_persona",
+      "advance_payment",
+      "gate_pass_story",
+      "fake_identity"
+    ],
+    "search_queries": [
+      "Army officer urgent sale",
+      "CISF transfer sale",
+      "Canteen delivery car",
+      "Thar army urgent sale"
+    ],
+    "observable_signals_to_test": [
+      "Price >= 40% below market average",
+      "Seller claims military / defense relocation",
+      "Demand for transport / gate pass fee before meeting",
+      "Reused military ID cards or canteen receipts across listings"
+    ],
+    "status": "planned"
+  },
+  {
+    "investigation_id": "INV-002",
+    "title": "High-End Electronics Warehouse Clearance & Advance Booking Trap",
+    "target_category": "smartphone / gaming_console / laptop",
+    "target_patterns": [
+      "unrealistic_price",
+      "advance_payment",
+      "fake_invoice",
+      "fake_business_identity"
+    ],
+    "search_queries": [
+      "iPhone 17 cheap OLX",
+      "PS5 15k urgent sale",
+      "MacBook M2 30k warehouse",
+      "Innologic Electronics OLX"
+    ],
+    "observable_signals_to_test": [
+      "Unrealistic low pricing on flagship devices",
+      "Advance token requirement (e.g. \u20b91,000 - \u20b95,000)",
+      "Warehouse clearance / GST invoice claims",
+      "Off-platform WhatsApp catalog redirection"
+    ],
+    "status": "planned"
+  }
+]

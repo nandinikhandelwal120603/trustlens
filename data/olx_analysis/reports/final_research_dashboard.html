@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLens — Final Research Intelligence Dashboard</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --heading: #f0f6fc;
+      --accent: #58a6ff;
+      --accent-alt: #238636;
+      --warning: #d29922;
+      --danger: #f85149;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px; }
+    header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }
+    h1 { color: var(--heading); font-size: 28px; margin-bottom: 8px; }
+    .badge-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .badge { background: #21262d; border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--accent); }
+    .nav-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; }
+    .tab-btn { background: none; border: none; color: var(--text); padding: 10px 16px; cursor: pointer; font-size: 14px; font-weight: 600; border-bottom: 2px solid transparent; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .section-content { display: none; }
+    .section-content.active { display: block; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .metric-title { font-size: 12px; text-transform: uppercase; color: #8b949e; margin-bottom: 4px; }
+    .metric-val { font-size: 28px; font-weight: 700; color: var(--heading); }
+    .metric-sub { font-size: 12px; color: #8b949e; margin-top: 4px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 24px; }
+    h2 { color: var(--heading); font-size: 20px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    h3 { color: var(--heading); font-size: 16px; margin: 16px 0 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+    th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    th { background: #21262d; color: var(--heading); }
+    tr:nth-child(even) { background: #11151c; }
+    .callout { background: rgba(88, 166, 255, 0.1); border-left: 4px solid var(--accent); padding: 12px 16px; border-radius: 4px; margin-bottom: 16px; }
+    .callout-warning { background: rgba(210, 153, 34, 0.1); border-left: 4px solid var(--warning); }
+    .callout-title { font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border); margin: 12px 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>TrustLens — Final Research Intelligence Dashboard</h1>
+  <p>Evidence-based multimodal marketplace investigation across 2,980 canonical OLX listings & 2,280 validated media assets.</p>
+  <div class="badge-bar">
+    <span class="badge">Phase K: COMPLETE</span>
+    <span class="badge">Phases A–J: FROZEN</span>
+    <span class="badge">2,980 Listings</span>
+    <span class="badge">2,280 Images</span>
+    <span class="badge">213 Multi-Signal Pairs</span>
+    <span class="badge">0 Risk Scores</span>
+  </div>
+</header>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="openTab('tab-overview')">Overview</button>
+  <button class="tab-btn" onclick="openTab('tab-ledger')">Dataset Ledger</button>
+  <button class="tab-btn" onclick="openTab('tab-multimodal')">Multimodal Evidence</button>
+  <button class="tab-btn" onclick="openTab('tab-network')">Network Intelligence</button>
+  <button class="tab-btn" onclick="openTab('tab-anomalies')">Statistical Novelty</button>
+  <button class="tab-btn" onclick="openTab('tab-cases')">Case Studies</button>
+  <button class="tab-btn" onclick="openTab('tab-guardrails')">Guardrails</button>
+</div>
+
+<!-- TAB 1: OVERVIEW -->
+<div id="tab-overview" class="section-content active">
+  <div class="grid-4">
+    <div class="metric-card">
+      <div class="metric-title">Canonical Listings</div>
+      <div class="metric-val">2,980</div>
+      <div class="metric-sub">100% deduplicated cohort</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-title">Evaluated Media</div>
+      <div class="metric-val">2,280</div>
+      <div class="metric-sub">pHash, DINO, OCR, AI tested</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-title">Multi-Signal Pairs</div>
+      <div class="metric-val">213</div>
+      <div class="metric-sub">≥2 independent evidence layers</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-title">Persistent Outliers</div>
+      <div class="metric-val">3</div>
+      <div class="metric-sub">Flagged in all 4 feature spaces</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Core Scientific Principle</h2>
+    <div class="callout callout-warning">
+      <div class="callout-title">ANOMALY ≠ FRAUD | EVIDENCE COUNT ≠ RISK SCORE</div>
+      TrustLens strictly separates objective forensic measurements from subjective intent. An anomalous listing indicates statistical novelty relative to the observed sample. It does not establish fraud, criminal intent, seller malice, or stolen imagery without independent external ground truth.
+    </div>
+    <p>TrustLens evaluated listings across independent visual, textual, pricing, OCR, network, and statistical novelty dimensions, proving that multi-modal cross-corroboration provides a superior foundation for marketplace integrity over single-signal heuristic rules.</p>
+  </div>
+</div>
+
+<!-- TAB 2: DATASET LEDGER -->
+<div id="tab-ledger" class="section-content">
+  <div class="card">
+    <h2>Authoritative Dataset Population Funnel</h2>
+    <p>The chart below traces the exact transition across capture events, canonical listings, Apollo CDN assets, downloaded files, and analytical feature tables.</p>
+    <img src="figures/62_dataset_population_funnel.png" alt="Dataset Funnel">
+    <table>
+      <thead>
+        <tr><th>Ledger Entity</th><th>Exact Count</th><th>Analytical Role</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Raw Ingestion Events</td><td>2,980</td><td>Observation envelopes across 5 unique capture archives</td></tr>
+        <tr><td>Canonical Listings</td><td>2,980</td><td>Deduplicated marketplace listings (1 row = 1 listing)</td></tr>
+        <tr><td>Media References</td><td>2,491</td><td>Listings with search-card image references (83.59%)</td></tr>
+        <tr><td>Unique Apollo IDs</td><td>2,323</td><td>Unique image asset keys hosted on Apollo CDN</td></tr>
+        <tr><td>Downloaded Images</td><td>2,282</td><td>Local media binaries downloaded (98.24% success)</td></tr>
+        <tr><td>Evaluated Media Assets</td><td>2,280</td><td>Intact binaries fingerprinted, embedded, OCR-processed</td></tr>
+        <tr><td>Feature Store Columns</td><td>137</td><td>Consolidated analytical features (Phase I)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 3: MULTIMODAL EVIDENCE -->
+<div id="tab-multimodal" class="section-content">
+  <div class="card">
+    <h2>Multimodal Inconsistencies & AI Detector Consensus</h2>
+    <div class="callout">
+      <div class="callout-title">Cross-Modal Verification</div>
+      Tesseract OCR detected visible text in 1,885 of 2,280 images (82.7%), isolating 68 discrepancy candidates (66 shared-image claim drift, 1 packaging model mismatch, 1 demo lock screen).
+    </div>
+    <img src="figures/67_multimodal_evidence_relationships.png" alt="Multimodal Relationships">
+    <img src="figures/68_ai_detector_agreement_disagreement.png" alt="AI Detector Agreement">
+    <p>Dual-detector analysis (ViT-Base & Swin-Base) highlighted 559 detector disagreements, demonstrating that single-model AI classification is highly unstable on unconstrained marketplace photos.</p>
+  </div>
+</div>
+
+<!-- TAB 4: NETWORK INTELLIGENCE -->
+<div id="tab-network" class="section-content">
+  <div class="card">
+    <h2>Marketplace Relationship Network</h2>
+    <p>Phase H constructed an entity graph containing 5,709 nodes and 21,395 relationship edges across 2,133 connected components.</p>
+    <img src="figures/69_network_relationship_overview.png" alt="Network Topology">
+    <img src="figures/72_multi_signal_evidence_distribution.png" alt="Multi-Signal Distribution">
+  </div>
+</div>
+
+<!-- TAB 5: STATISTICAL NOVELTY -->
+<div id="tab-anomalies" class="section-content">
+  <div class="card">
+    <h2>Isolation Forest Novelty Modeling (Phase J)</h2>
+    <p>Four primary experiments were evaluated at nominal contamination c=0.05 (149 outliers per space): Price, Price+Text, Price+Image, Full Multimodal.</p>
+    <img src="figures/70_statistical_anomaly_experiment_overlap.png" alt="Experiment Overlap">
+    <img src="figures/71_anomaly_persistence.png" alt="Anomaly Persistence">
+  </div>
+</div>
+
+<!-- TAB 6: CASE STUDIES -->
+<div id="tab-cases" class="section-content">
+  <div class="card">
+    <h2>Representative Case Studies</h2>
+    <table>
+      <thead>
+        <tr><th>Case</th><th>Listing ID</th><th>Product</th><th>Observed Evidence</th><th>Significance</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>1853431683</td><td>iPhone 13</td><td>Exact SHA-256 binary match across Thane & Mumbai</td><td>Binary image duplication across city boundaries</td></tr>
+        <tr><td>2</td><td>1854413649</td><td>iPhone 14 Pro Max</td><td>DINOv2 cosine 0.884, distinct SHA-256</td><td>Captures visual pose/angle variations</td></tr>
+        <tr><td>3</td><td>1856180547</td><td>iPhone 13</td><td>Title claims 'iPhone 13'; OCR detected 'iPhone 13 Mini'</td><td>Cross-modal packaging claim mismatch</td></tr>
+        <tr><td>4</td><td>1848124756</td><td>Apple iPhone</td><td>OCR detected 'ACTIVATION LOCK' (conf 76.2)</td><td>Identifies locked/parts hardware constraints</td></tr>
+        <tr><td>5</td><td>1853989585</td><td>iPhone 13</td><td>Shared image; claims drift 128GB (₹42k) vs 256GB (₹48k)</td><td>Shared-image claim divergence across listings</td></tr>
+        <tr><td>6</td><td>1842975565</td><td>iPhone 13 Pro Max</td><td>Dual AI Detector scores: A=0.975, B=0.772</td><td>Consensus AI candidate on graphic flyer</td></tr>
+        <tr><td>7</td><td>1694522732</td><td>iPhone 12</td><td>Detector A=0.012 vs Detector B=0.954</td><td>Severe single-detector disagreement</td></tr>
+        <tr><td>8</td><td>1856141038</td><td>iPhone 17 Pro</td><td>Price ₹350 (99.1% below median)</td><td>Persistent statistical novelty outlier</td></tr>
+        <tr><td>9</td><td>1853686065</td><td>Software Service</td><td>Exact Image + High Text + OCR Phrase + DINO</td><td>Multi-signal convergence across 4 layers</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 7: GUARDRAILS -->
+<div id="tab-guardrails" class="section-content">
+  <div class="card">
+    <h2>Scientific Guardrails & Boundaries</h2>
+    <table>
+      <thead>
+        <tr><th>Forensic Capability</th><th>TrustLens Status</th><th>Definitive Scientific Boundary</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Price Anomaly</td><td>Supported</td><td>Measures empirical deviation; cannot prove seller malice</td></tr>
+        <tr><td>Binary Image Reuse</td><td>Supported</td><td>Measures SHA-256 equality; cannot prove image theft</td></tr>
+        <tr><td>Visual Similarity</td><td>Supported</td><td>Measures embedding alignment; cannot prove physical custody</td></tr>
+        <tr><td>OCR Claim Check</td><td>Supported</td><td>Detects text contradictions; cannot establish intent</td></tr>
+        <tr><td>Seller Identity</td><td>NOT Supported</td><td>Seller identifiers unobserved in search-card capture</td></tr>
+        <tr><td>Fraud Determination</td><td>NOT Supported</td><td>No ground-truth fraud outcomes exist in corpus</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  function openTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.section-content').forEach(content => content.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+</script>
+</body>
+</html>

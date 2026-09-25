@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-09-21T18:38:46.157142",
+  "source_files_count": 6,
+  "unique_files_count": 5,
+  "duplicate_files_count": 1,
+  "duplicate_files": [
+    {
+      "file_name": "trustlens_olx_iphone_2026-09-21T17-11-28.json",
+      "sha256": "35b1bbd6584993db1e7e0862c2919b52fd6faa65fd24b610a814adc09bba8f27",
+      "identical_to": "trustlens_olx_iphone_2026-09-21T17-11-28 copy.json"
+    }
+  ],
+  "total_captures": 5,
+  "observation_count": 2980,
+  "unique_listing_count": 2980,
+  "repeat_observations": 0,
+  "unique_media_count": 2323,
+  "total_media_references": 2491,
+  "media_availability": {
+    "listings_with_media": 2491,
+    "listings_with_media_pct": 83.59,
+    "listings_without_media": 489,
+    "listings_without_media_pct": 16.41
+  },
+  "missing_data_rates": {
+    "missing_title_count": 0,
+    "missing_title_pct": 0.0,
+    "missing_price_count": 1,
+    "missing_price_pct": 0.03,
+    "missing_location_count": 579,
+    "missing_location_pct": 19.43,
+    "missing_description_pct": 100.0,
+    "missing_seller_profile_pct": 100.0
+  },
+  "badge_availability": {
+    "featured_count": 371,
+    "featured_pct": 12.45,
+    "verified_count": 0,
+    "verified_pct": 0.0,
+    "elite_count": 0,
+    "elite_pct": 0.0
+  },
+  "search_query_breakdown": {
+    "iphone": 2337,
+    "macbook": 393,
+    "ps5 controller": 250
+  },
+  "category_id_breakdown": {
+    "1453": 2337,
+    "1505": 393,
+    "93": 250
+  },
+  "geographic_coverage": {
+    "confidence_distribution": {
+      "high": 2280,
+      "unknown": 579,
+      "medium": 121
+    },
+    "top_states": {
+      "Karnataka": 943,
+      "Delhi": 939,
+      "Maharashtra": 286,
+      "Tamil Nadu": 23,
+      "Uttar Pradesh": 18,
+      "Telangana": 14,
+      "Haryana": 14,
+      "Punjab": 9,
+      "West Bengal": 8,
+      "Gujarat": 6,
+      "Madhya Pradesh": 5,
+      "Kerala": 5
+    },
+    "top_cities": {
+      "Bengaluru": 943,
+      "Delhi": 939,
+      "Mumbai": 127,
+      "Pune": 41,
+      "Thane": 34,
+      "Navi Mumbai": 20,
+      "Nagpur": 20,
+      "Chennai": 18,
+      "Aurangabad": 16,
+      "Hyderabad": 14,
+      "Nashik": 13,
+      "Gurgaon": 8,
+      "Bhiwandi": 6,
+      "Maharashtra": 6,
+      "Kolkata": 6
+    }
+  },
+  "price_summary": {
+    "count": 2979,
+    "min": 150.0,
+    "max": 650000.0,
+    "median": 37999.0,
+    "mean": 48341.41356159785
+  },
+  "parquet_files": {
+    "observations": "data/olx_processed/observations.parquet",
+    "listings": "data/olx_processed/listings.parquet",
+    "media": "data/olx_processed/media.parquet"
+  }
+}

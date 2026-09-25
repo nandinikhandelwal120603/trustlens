@@ -1,0 +1,31 @@
+[
+  {
+    "journey_id": "FJ-001",
+    "journey_name": "Army Persona / Canteen Gate-Pass Advance Deposit Fraud",
+    "target_category": "car / laptop / smartphone",
+    "sequence": [
+      "Listing published at unrealistic low price",
+      "Buyer contacts seller; seller claims Army / CISF officer persona relocated to remote base",
+      "Conversation moves to WhatsApp",
+      "Seller demands advance payment / gate-pass fee / military transport token",
+      "Fake Army ID or defence canteen receipt sent to build trust",
+      "Buyer transfers money; seller requests additional gate pass / security deposit",
+      "Seller blocks buyer and disappears"
+    ],
+    "supporting_case_count": 7
+  },
+  {
+    "journey_id": "FJ-002",
+    "journey_name": "QR Code Reverse Charge Receive Money Trap",
+    "target_category": "electronics / rental / furniture",
+    "sequence": [
+      "Scammer acts as buyer for legitimate listing or seller for low-priced item",
+      "Scammer sends a payment QR code claiming 'scan this to receive money'",
+      "Victim scans QR code and enters UPI PIN",
+      "Money is debited from victim's account instead of credited",
+      "Scammer claims error and sends second QR code to 'refund'",
+      "Victim suffers double loss"
+    ],
+    "supporting_case_count": 20
+  }
+]
