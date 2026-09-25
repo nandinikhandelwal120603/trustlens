@@ -1,0 +1,17 @@
+# Netlify Configuration for TrustLens Presentation & Research Showcase
+
+[build]
+  # Publish current directory containing index.html and all_graphs_and_images/
+  publish = "."
+
+# Optimized cache headers for lightning-fast image loading
+[[headers]]
+  for = "/all_graphs_and_images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
