@@ -1,347 +1,166 @@
-# TrustLens — Marketplace Fraud Intelligence
+# TrustLens: Multimodal Marketplace Fraud Intelligence
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
-[![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](https://mypy.readthedocs.io/)
+[![Tests: 124 passed](https://img.shields.io/badge/tests-124%20passed-brightgreen.svg)](tests/)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
+[![Complete Research Dataset](https://img.shields.io/badge/Full%20Data-trustlens--full-purple.svg)](https://github.com/nandinikhandelwal120603/trustlens-full)
 
-> **Research-grade, open-source marketplace fraud intelligence foundation.**  
-> Investigating online marketplace risk through structured signals, multi-modal evidence, and explainable intelligence.
-
----
-
-## 1. Problem Statement
-
-Secondary online marketplaces (e.g. OLX, Facebook Marketplace, Craigslist, Quikr) suffer from persistent risks of deception: counterfeit electronics, fraudulent advance-payment demands, non-existent inventory, stolen product images, and fabricated seller claims. Today, buyers must manually guess whether a listing or seller is genuine.
-
-Current platform moderation relies largely on post-facto account bans and brittle keyword filters that fail against coordinated fraudsters rotating disposable accounts and relisting duplicate media.
-
-## 2. The TrustLens Vision
-
-**TrustLens** is building an evidence-based marketplace fraud intelligence system that collects, normalizes, inspects, and analyzes listing claims against cross-source evidence.
-
-By integrating:
-* Structured listing analysis & canonical normalization
-* Privacy-conscious seller entity signals & cross-listing clustering
-* Computer vision, perceptual image hashing & duplicate detection
-* OCR, NLP claim extraction & discrepancy detection
-* Web evidence retrieval & evidence graph reasoning
-* Explainable risk assessment (never opaque black-box verdicts)
-
-TrustLens empowers researchers, consumers, and platforms to verify marketplace transactions objectively.
+> **An evidence-based multimodal research system investigating deceptive patterns, cross-market image reuse, multimodal contradictions, and statistical novelty in online classifieds (OLX India).**
 
 ---
 
-## 3. Current Status: Phase 1 — Data Ingestion Foundation
+## 🌟 Quick Links & Navigation
 
-We are currently in **Phase 1**. The goal of Phase 1 is **not** to train fraud prediction models, build AI agents, or run vector databases, but to construct a **bulletproof, production-style data ingestion foundation**:
-
-* Source-agnostic canonical schema (`CanonicalListing`, `Seller`, `Media`, `Case`, `Evidence`)
-* Zero raw data loss (raw payloads preserved immutably in `data/raw/<case_id>/`)
-* Fault-tolerant validation (malformed entries routed to `validation_errors.jsonl` without halting batches)
-* Deterministic normalization (multi-format Indian/global prices, condition vernacular, category taxonomy)
-* Privacy-by-design (salted `HMAC-SHA256` hashing for seller identifiers; no raw PII in logs or storage)
-* Dual storage (transactional SQLite via SQLAlchemy ORM + analytical Parquet/JSONL)
-* Deterministic deduplication (source ID, URL, media SHA-256, normalized title + seller phone hash)
-* Modular CLI & observability tooling
-
----
-
-## 4. System Architecture
-
-```mermaid
-graph TD
-    subgraph IngestionSources ["Ingestion Sources"]
-        JSON_IN["User Submissions (JSON)"]
-        CSV_IN["User Submissions (CSV)"]
-        WEB_IN["Permitted Web URLs"]
-        PUB_DS["Public Datasets"]
-        AUTH_OLX["Authorized OLX API (Future/Compliant)"]
-    end
-
-    subgraph Connectors ["Connectors & Extraction Adapters"]
-        US_CONN["UserSubmissionConnector"]
-        PUB_CONN["PublicDatasetConnector"]
-        EXT_ADAPT["Crawl4AIWebExtractor (Optional Extra)"]
-        OLX_STUB["OLXConnector (Interface Stub)"]
-    end
-
-    subgraph RawVault ["Immutable Raw Vault"]
-        RAW_DISK["data/raw/<case_id>/<br/>• source.json<br/>• page.html<br/>• media/"]
-    end
-
-    subgraph Engine ["Ingestion & Normalization Engine"]
-        VAL["ListingValidator (Pydantic v2)"]
-        ERR_SINK["data/raw/validation_errors.jsonl"]
-        NORM["Normalizer<br/>• Price & Currency (₹, 45k, Rs)<br/>• Condition Vernacular<br/>• Electronics Taxonomy<br/>• Text Whitespace"]
-        DEDUP["Deduplicator<br/>• Source ID / URL Match<br/>• Media SHA-256<br/>• Title + Seller Phone Hash"]
-    end
-
-    subgraph Storage ["Dual Storage Layer"]
-        DB[("SQLite Database (WAL Mode)<br/>SQLAlchemy 2.0 ORM")]
-        NORM_STORE["data/normalized/<br/>• listings.jsonl<br/>• listings.parquet"]
-    end
-
-    JSON_IN --> US_CONN
-    CSV_IN --> US_CONN
-    WEB_IN --> EXT_ADAPT --> US_CONN
-    PUB_DS --> PUB_CONN
-    AUTH_OLX --> OLX_STUB
-
-    US_CONN --> RAW_DISK
-    PUB_CONN --> RAW_DISK
-    OLX_STUB --> RAW_DISK
-
-    RAW_DISK --> VAL
-    VAL -- "Invalid" --> ERR_SINK
-    VAL -- "Valid" --> NORM
-    NORM --> DEDUP
-    DEDUP --> DB
-    DEDUP --> NORM_STORE
-```
+* 📖 **[Super Master Document](TRUSTLENS_SUPER_MASTER_DOCUMENT.md)** — Complete 18-section end-to-end chronicle (Reddit foundation to Phase K).
+* 📑 **[Final Research Report](FINAL_TRUSTLENS_RESEARCH_REPORT.md)** — Authoritative evidence synthesis & methodology.
+* 📊 **[Empirical Marketplace Findings](MARKETPLACE_FINDINGS.md)** — Verified observations, dispersion metrics & guardrails.
+* 💻 **[Phase-Wise Code Structure (`phases_code/`)](phases_code/README.md)** — Self-contained directories (Phases 00–11) with runners and guides.
+* 🕷️ **Scrapers & Acquisition Tools**:
+  * **[OLX Chrome Extension (`capture-olx/`)](capture-olx/README.md)** — Manifest V3 client-side listing & search feed extractor.
+  * **[Reddit Complaint Scraper (`scripts/scrape_reddit_complaints.py`)](scripts/scrape_reddit_complaints.py)** — Public subreddit scam report collector.
+* 📈 **[Visual Assets Catalogue (`all_graphs_and_images/`)](all_graphs_and_images/VISUAL_CATALOGUE.md)** — 83 publication figures + 10 interactive dashboards.
+* 🚀 **[Interactive Showcase & Demo (`showcase/`)](showcase/README.md)** — 10-screen visual storytelling web app.
+* 💾 **[Full Research Vault (`trustlens-full`)](https://github.com/nandinikhandelwal120603/trustlens-full)** — Complete 120MB raw multimodal dataset (2,280 image assets, 178 Reddit complaint posts, raw Parquet feature stores).
 
 ---
 
-## 5. Core Data Model
+## 1. Core Research Philosophy
 
-TrustLens models are built with **Pydantic v2** and mapped relationally with **SQLAlchemy 2.0 ORM**:
+TrustLens is an **evidence-based marketplace fraud intelligence system**. It explicitly rejects black-box "scam scores" and subjective fraud probabilities. Instead, it operates on a rigorous **Evidence Hierarchy**:
 
-```mermaid
-erDiagram
-    Case ||--o{ CanonicalListing : "investigates"
-    Case ||--o{ Evidence : "aggregates"
-    CanonicalListing ||--o| Seller : "posted_by"
-    CanonicalListing ||--o{ Media : "includes"
-    CanonicalListing ||--o{ ListingDuplicate : "matches"
+* **OBSERVED:** Directly visible, byte-verifiable data (e.g. identical SHA-256 image hashes, exact title string equality).
+* **DERIVED:** Deterministically calculated from observations (e.g. price z-score, distance from category median).
+* **CANDIDATE:** Model-identified hypotheses requiring human triage (e.g. DINOv2 cosine similarity $\ge 0.70$, OCR packaging text mismatches).
+* **UNVERIFIED / UNKNOWN:** Factors unobserved in public search captures (e.g. seller legal identity, criminal intent, transaction outcome).
 
-    Case {
-        string case_id PK
-        string status
-        string source
-        datetime created_at
-        datetime updated_at
-        json metadata_
-    }
-
-    Seller {
-        string seller_id PK
-        string source
-        string display_name
-        boolean phone_present
-        string phone_hash "HMAC-SHA256"
-        boolean email_present
-        string email_hash "HMAC-SHA256"
-        string verification_status
-        string seller_type
-        json metadata_
-    }
-
-    CanonicalListing {
-        string listing_id PK
-        string case_id FK
-        string seller_id FK
-        string raw_title
-        string normalized_title
-        float raw_price
-        float normalized_price
-        string normalized_currency
-        string category
-        string subcategory
-        string condition
-        string location_city
-        string location_state
-        boolean is_synthetic
-        json collection_metadata
-    }
-
-    Media {
-        string media_id PK
-        string listing_id FK
-        string media_type
-        string source_url
-        string local_path
-        string sha256
-        string perceptual_hash
-        int file_size
-        int width
-        int height
-    }
-
-    Evidence {
-        string evidence_id PK
-        string case_id FK
-        string source_type
-        string claim
-        string evidence_text
-        string verification_status
-        float confidence
-    }
-
-    ListingDuplicate {
-        int id PK
-        string original_listing_id FK
-        string duplicate_listing_id
-        string duplicate_type
-        string match_reason
-    }
-```
+> **Scientific Guardrail:** An anomaly is **NOT** a scam. High statistical novelty and cross-city media reuse represent candidate investigation triggers for marketplace trust teams, not automated accusations.
 
 ---
 
-## 6. Privacy & Ethics Safeguards
+## 2. Key Empirical Findings (At a Glance)
 
-TrustLens enforces strict privacy protections throughout its architecture:
-1. **Never Storing Raw PII**: Customer telephone numbers and email addresses are never saved in plaintext or output in log files.
-2. **Deterministic Salted Hashes**: Identifiers are normalized and hashed using `HMAC-SHA256` with a secret salt (`HASH_SALT`). This prevents rainbow-table recovery while enabling duplicate seller clustering.
-3. **No Scraping Without Permission**:
-   - Automated mass scraping of OLX India is prohibited by platform Terms of Service.
-   - TrustLens provides an `OLXConnector` interface for official API partner credentials or user-authorized listing exports, not an active mass scraper.
-   - Web extraction via Crawl4AI is decoupled and restricted to authorized or user-submitted URLs.
-4. **Git Protection**: `data/raw/`, `data/normalized/`, `data/processed/`, and `data/labels/` are strictly excluded in `.gitignore`. Real user data is never committed to Git.
+Evaluated across **2,980 canonical OLX India listings** across 3 targeted consumer hardware queries (`iphone`, `macbook`, `ps5 controller`):
+
+* 🖼️ **78.0% Cross-City Image Mobility:** 164 pairwise instances of byte-for-byte identical image reuse (SHA-256); nearly 4 out of 5 spanned different cities and states (e.g. Delhi to Bengaluru, Thane to Mumbai).
+* 🔤 **22.35% Exact Title Duplication:** 666 listings used verbatim, repeated title templates; 52.6% contained aggressive condition claims (*"mint condition"*, *"sealed pack"*).
+* 📞 **3.09% Out-of-Band Redirection:** 92 listings embedded phone numbers or WhatsApp strings in titles to divert buyers off-platform.
+* 📦 **Multimodal Packaging Contradictions:** Local OCR extracted text from 82.68% of images, discovering:
+  * 1 direct **model mismatch** (title claimed *"iPhone 13 128"*, while packaging box OCR confirmed *"iPhone 13 Mini"*).
+  * 1 **activation lock screen** (*"ACTIVATION LOCK"* visible on display).
+  * 66 instances of **shared-image claim drift** (divergent storage/pricing on identical photos).
+* 🤖 **The Single AI Detector Fallacy:** Evaluated across dual Vision Transformers (ViT-Base and Swin-Base). While 958 images agreed real (42.0%) and only 6 were mutual AI candidates (0.26%; graphic flyers, not deepfakes), **559 images caused detector disagreement (24.5%)**, proving single AI detectors produce unacceptable false-positive rates on classified imagery.
+* 🌐 **5,709-Node Entity Graph:** 21,395 relationship edges formed 2,133 components. The largest component (`COMP-001`) linked **122 listings across 14 cities** via shared templates, images, and text.
+* 🎯 **213 Multi-Signal Corroborated Pairs:** Exactly 213 listing pairs were corroborated across $\ge 2$ independent forensic layers (with 5 pairs corroborated across 4 distinct layers).
 
 ---
 
-## 7. Electronics Taxonomy
-
-Phase 1 focuses on high-risk electronics categories:
+## 3. Architecture & Pipeline Overview
 
 ```text
-Electronics
-├── Smartphones
-│   ├── iPhone, Samsung, OnePlus, Google Pixel, Xiaomi, Other
-├── Gaming
-│   ├── PlayStation, Xbox, Nintendo Switch, GPU, Gaming PC
-├── Cameras
-│   ├── DSLR, Mirrorless, Lens, Action Camera
-├── Laptops
-│   ├── MacBook, Windows Laptop, Gaming Laptop
-└── Audio & Wearables
-    ├── AirPods, Headphones, Earbuds, Smartwatch
+[ Reddit Scam Foundation ] ──▶ [ Targeted OLX Data Capture ]
+   (178 Posts, 330 Media)          (2,980 Canonical Listings)
+                                                │
+                                                ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                               MULTIMODAL FORENSIC ENGINE                               │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│  Phase B: Product Normalization & Price Baseline Modeling (81 Canonical Categories)   │
+│  Phase C: Cryptographic (SHA-256) & Perceptual Image Fingerprinting (pHash/dHash)     │
+│  Phase D: Deep Visual Embeddings & Semantic Similarity (DINOv2 ViT-B/14)               │
+│  Phase E: Multimodal Packaging OCR & Cross-Modal Consistency Engine (Tesseract)       │
+│  Phase F: Text Intelligence, Lexical Linguistics & Urgency Extraction                 │
+│  Phase G/G.1: Image Authenticity, Dual AI Consensus & Spectral FFT Analysis            │
+│  Phase H: Relationship Network Intelligence & Graph Topology (NetworkX)                │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+                                                │
+                                                ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                              EVIDENCE SYNTHESIS & MODELING                             │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│  Phase I: Unified Multimodal Feature Store (2,980 Rows × 137 Validated Columns)       │
+│  Phase J: Multivariate Statistical Novelty Modeling (Isolation Forests across 4 spaces)│
+│  Phase K: Multi-Signal Evidence Synthesis & Prioritized Investigator Review Queue     │
+└────────────────────────────────────────────────────────────────────────────────────────┘
 ```
-
-Taxonomy and keyword aliases are fully configurable in `src/trustlens/config/categories.py`.
 
 ---
 
-## 8. Quickstart Guide
+## 4. Phase-Wise Code Navigation
+
+All source code has been structured phase-by-phase inside [`phases_code/`](phases_code/README.md) for effortless browsing:
+
+| Phase Directory | Focus Area | Key Modules |
+| :--- | :--- | :--- |
+| **[`00_reddit_research_foundation/`](phases_code/00_reddit_research_foundation/)** | Problem Foundation | `reddit_scraper.py`, `full_processor.py`, `media_packager.py`, `validator.py` |
+| **[`01_phase_a_data_ingestion_audit/`](phases_code/01_phase_a_data_ingestion_audit/)** | Ingestion & Quality | `data_audit.py`, `ingest.py`, `schemas.py` |
+| **[`02_phase_b_product_price_intelligence/`](phases_code/02_phase_b_product_price_intelligence/)** | Price Baselines | `price_analysis.py`, `normalizer.py`, `taxonomy.py` |
+| **[`03_phase_c_image_fingerprinting/`](phases_code/03_phase_c_image_fingerprinting/)** | Media Hashing | `image_fingerprints.py`, `hasher.py` |
+| **[`04_phase_d_dino_visual_embeddings/`](phases_code/04_phase_d_dino_visual_embeddings/)** | Deep Vision | `visual_embeddings.py`, `dinov2_extractor.py` |
+| **[`05_phase_e_multimodal_ocr/`](phases_code/05_phase_e_multimodal_ocr/)** | Packaging OCR | `multimodal_ocr.py`, `ocr_engine.py` |
+| **[`06_phase_f_text_intelligence/`](phases_code/06_phase_f_text_intelligence/)** | Lexical NLP | `text_intelligence.py`, `linguistics.py` |
+| **[`07_phase_g_g1_ai_image_detection/`](phases_code/07_phase_g_g1_ai_image_detection/)** | AI Forensics | `ai_image_detector.py`, `consensus_engine.py` |
+| **[`08_phase_h_relationship_network/`](phases_code/08_phase_h_relationship_network/)** | Entity Graph | `relationship_network.py`, `graph_builder.py` |
+| **[`09_phase_i_unified_feature_store/`](phases_code/09_phase_i_unified_feature_store/)** | Feature Store | `feature_store.py`, `schema_validator.py` |
+| **[`10_phase_j_statistical_anomaly_detection/`](phases_code/10_phase_j_statistical_anomaly_detection/)** | Novelty Modeling | `anomaly_detection.py`, `isolation_forest.py` |
+| **[`11_phase_k_final_evidence_synthesis/`](phases_code/11_phase_k_final_evidence_synthesis/)** | Evidence Synthesis | `final_synthesis.py`, `review_queue.py` |
+
+---
+
+## 5. Getting Started
 
 ### Prerequisites
-* Python 3.11 or higher
-* Virtual environment (`venv`)
+* Python 3.11+
+* Tesseract OCR (`brew install tesseract` on macOS / `apt install tesseract-ocr` on Linux)
 
 ### Installation
-
 ```bash
-# 1. Clone repository
-git clone https://github.com/your-username/trustlens.git
+# Clone the repository
+git clone https://github.com/nandinikhandelwal120603/trustlens.git
 cd trustlens
 
-# 2. Create and activate virtual environment
+# Create virtual environment & install dependencies
 python3 -m venv .venv
 source .venv/bin/activate
-
-# 3. Install in editable mode with dev dependencies
 pip install -e ".[dev]"
-
-# (Optional) If you plan to crawl permitted URLs using Crawl4AI:
-# pip install -e ".[web]"
 ```
 
-### Environment Configuration
+### Running the Scrapers
 
+#### 1. Reddit Scam Complaint Scraper
 ```bash
-cp .env.example .env
+# Scrape live public fraud reports from Indian subreddits
+python scripts/scrape_reddit_complaints.py --query "olx scam" --limit-per-sub 25 --output data/scraped_complaints.json
+```
+
+#### 2. OLX Marketplace Capture Extension
+1. Open Chrome and navigate to `chrome://extensions/`.
+2. Enable **Developer mode** (top-right).
+3. Click **Load unpacked** and select the [`capture-olx`](capture-olx/) folder.
+4. Browse OLX India, click the extension icon, and click **Capture**.
+5. See [`capture-olx/README.md`](capture-olx/README.md) for full instructions.
+
+### Running Tests
+```bash
+# Execute the complete test suite (124 tests)
+pytest tests/
+```
+
+### Launching the Showcase Web App
+```bash
+open showcase/demo/index.html
 ```
 
 ---
 
-## 9. CLI Usage
+## 6. Repository Scope & Full Data Link
 
-TrustLens provides a CLI powered by Typer and Rich.
+To keep this repository clean, lightweight (~23 MB), and easy for recruiters and open-source contributors to navigate, the 2,280 downloaded raw listing images and large raw crawl archives are maintained in a dedicated research dataset repository:
 
-### 1. Ingest Synthetic JSON Dataset
-```bash
-trustlens ingest --file examples/synthetic_listings.json
-```
-
-### 2. Ingest CSV Listings
-```bash
-trustlens ingest --csv examples/synthetic_listings.csv
-```
-
-### 3. Validate Listings (Dry Run)
-```bash
-trustlens validate --file examples/synthetic_listings.json
-```
-
-### 4. Preview Normalization Transformations
-```bash
-trustlens normalize --file examples/synthetic_listings.json --limit 3
-```
-
-### 5. View Ingestion Statistics
-```bash
-trustlens stats
-```
-
-Output:
-```text
-    TrustLens Marketplace Intelligence — Database Statistics    
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Metric                              ┃ Count / Breakdown      ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Total Listings Ingested             │ 30                     │
-│ Synthetic Listings                  │ 30                     │
-│ Listings by Category                │ • Audio & Wearables: 5 │
-│                                     │ • Cameras: 6           │
-│                                     │ • Gaming: 7            │
-│                                     │ • Laptops: 4           │
-│                                     │ • Smartphones: 8       │
-│ Listings by Source                  │ • user_submission: 30  │
-│ Listings with Images                │ 24                     │
-│ Listings with Videos                │ 0                      │
-│ Missing Descriptions                │ 1                      │
-│ Missing Prices                      │ 1                      │
-│ Duplicate Listings Detected         │ 2                      │
-│ Logged Validation Errors            │ 0                      │
-└─────────────────────────────────────┴────────────────────────┘
-```
+👉 **[https://github.com/nandinikhandelwal120603/trustlens-full](https://github.com/nandinikhandelwal120603/trustlens-full)**
 
 ---
 
-## 10. Running Tests & Code Quality
+## 7. License
 
-```bash
-# Run pytest test suite (28 unit & e2e integration tests)
-pytest -v
-
-# Run static type checking
-mypy src/trustlens
-
-# Run linter and formatter checks
-ruff check .
-ruff format --check .
-```
-
----
-
-## 11. Project Roadmap
-
-```text
-[✓] Phase 1  — Data Ingestion Foundation (Canonical schema, Normalizer, Deduplication, SQLite/Parquet)
-[ ] Phase 2  — Data Cleaning & Human Annotation Studio
-[ ] Phase 3  — Multimodal Feature Extraction (OCR, Perceptual Visual Embeddings, EXIF)
-[ ] Phase 4  — Baseline Fraud & Anomaly Detection Models
-[ ] Phase 5  — Evaluation Benchmark & Metric Tracking
-[ ] Phase 6  — Web Evidence Retrieval & Cross-Reference RAG
-[ ] Phase 7  — Entity & Evidence Graph Construction
-[ ] Phase 8  — Autonomous Investigation Agent
-[ ] Phase 9  — API Service & Interactive Fraud Dashboard
-[ ] Phase 10 — Official Authorized Marketplace Platform Integration
-```
-
----
-
-## License
-
-This project is licensed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.
+Distributed under the Apache 2.0 License. See [`LICENSE`](LICENSE) for details.
