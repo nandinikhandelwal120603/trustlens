@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="TrustLens — Independent multimodal AI/ML research investigating marketplace fraud, image reuse, and multimodal inconsistencies in online classifieds.">
+<title>TrustLens — Marketplace Trust & Fraud Intelligence</title>
+<style>
+:root {
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --line: #d2d2d7;
+  --blue: #0066cc;
+  --blue-soft: #e8f2ff;
+  --pill-bg: #f0f0f2;
+  --tag-border: #e0e0e5;
+  --green: #2e7d32;
+  --max: 1140px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Sticky Navbar */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(245, 245, 247, 0.86);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(210, 210, 215, 0.7);
+}
+.navin {
+  max-width: var(--max);
+  margin: auto;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.navlinks {
+  display: flex;
+  gap: 22px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.navlinks a {
+  color: #333336;
+  transition: color 0.15s ease;
+}
+.navlinks a:hover {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* OLX Badges & Wordmark */
+.badge-olx {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #002f34;
+  margin-left: 6px;
+}
+.badge-olx span {
+  color: #6e6e73;
+  font-weight: 500;
+}
+.olx-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #002f34;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.olx-hero-badge strong {
+  color: #002f34;
+  letter-spacing: -0.01em;
+}
+.olx-hero-badge span {
+  color: #6e6e73;
+  font-weight: 400;
+}
+
+/* Layout */
+main {
+  max-width: var(--max);
+  margin: auto;
+  padding: 40px 24px 90px;
+}
+.hero {
+  text-align: center;
+  padding: 40px 0 60px;
+}
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: clamp(42px, 6.5vw, 74px);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  margin: 14px 0 20px;
+  font-weight: 700;
+}
+.lead {
+  max-width: 820px;
+  margin: auto;
+  color: #424245;
+  font-size: clamp(18px, 2.2vw, 23px);
+  line-height: 1.45;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: #111113;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.btn:hover {
+  background: #f0f0f3;
+  text-decoration: none;
+}
+.btn.dark {
+  background: #111113;
+  color: #ffffff;
+  border-color: #111113;
+}
+.btn.dark:hover {
+  background: #2a2a2e;
+}
+
+/* Sections & Cards */
+section { margin-top: 72px; }
+.section-title {
+  font-size: 34px;
+  letter-spacing: -0.035em;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+.section-sub {
+  color: var(--muted);
+  font-size: 17px;
+  max-width: 800px;
+  margin: 0 0 28px;
+  line-height: 1.45;
+}
+.story, .finding, .figure, .callout, .boundary, .banner-card {
+  background: #ffffff;
+  border: 1px solid rgba(210, 210, 215, 0.75);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+.story {
+  padding: 42px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafc 100%);
+}
+.quote {
+  font-size: clamp(23px, 3vw, 30px);
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  margin: 16px 0 20px;
+  color: #111113;
+}
+.body {
+  font-size: 17px;
+  color: #424245;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.stat {
+  background: #ffffff;
+  border: 1px solid rgba(210, 210, 215, 0.7);
+  border-radius: 20px;
+  padding: 22px 20px;
+}
+.num {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #111113;
+}
+.label {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Grid of Findings */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 18px;
+}
+.finding {
+  padding: 26px;
+}
+.finding h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.finding p {
+  margin: 0;
+  color: #4a4a4f;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Architecture Hero Card */
+.banner-card {
+  padding: 24px;
+  margin: 32px 0;
+}
+.banner-card img {
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+  border: 1px solid #ebebf0;
+}
+.banner-caption {
+  margin-top: 16px;
+  color: #424245;
+  font-size: 15px;
+}
+
+/* Visual Gallery & Figure Cards */
+.figgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.figure {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.figure-img-wrap {
+  width: 100%;
+  height: 310px;
+  background: #fbfbfd;
+  border-radius: 16px;
+  border: 1px solid #ececed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.fig-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: #444;
+  border: 1px solid var(--tag-border);
+  margin-bottom: 10px;
+  margin-top: 14px;
+  align-self: flex-start;
+}
+.fig-badge.phase-b { background: #eef5ff; color: #0052cc; border-color: #cce0ff; }
+.fig-badge.phase-c { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.fig-badge.phase-e { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+.fig-badge.phase-g { background: #faf5ff; color: #7e22ce; border-color: #e9d5ff; }
+.fig-badge.phase-h { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
+.fig-badge.phase-j { background: #f0fdfa; color: #0f766e; border-color: #99f6e4; }
+.fig-badge.phase-k { background: #fefce8; color: #854d0e; border-color: #fef08a; }
+
+.fig-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+  color: #111113;
+}
+.fig-desc {
+  font-size: 14.5px;
+  color: #4a4a4f;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  flex-grow: 1;
+}
+.fig-takeaway {
+  font-size: 13.5px;
+  padding: 10px 12px;
+  background: #f7f7f9;
+  border-left: 3px solid var(--blue);
+  border-radius: 6px;
+  color: #2c2c30;
+}
+.tiny { color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+/* Table of Boundaries */
+.boundary { overflow: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; min-width: 650px; }
+th, td {
+  text-align: left;
+  padding: 15px 18px;
+  border-bottom: 1px solid #ebebed;
+  vertical-align: top;
+  font-size: 14.5px;
+}
+th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: #fafafc;
+}
+td strong { color: #111; }
+
+/* Callout & Footer */
+.callout {
+  background: #111113;
+  color: #ffffff;
+  padding: 42px;
+}
+.callout p { color: #d0d0d5; font-size: 17px; line-height: 1.6; }
+.callout strong { color: #ffffff; }
+
+.footer {
+  border-top: 1px solid var(--line);
+  text-align: center;
+  padding: 35px 24px 50px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .figgrid, .grid2 { grid-template-columns: 1fr; }
+  .navlinks { display: none; }
+  .figure-img-wrap { height: 260px; }
+}
+@media (max-width: 520px) {
+  main { padding-top: 30px; }
+  .stats { grid-template-columns: 1fr; }
+  .story, .callout { padding: 24px; }
+  .figure { padding: 14px; }
+  .figure-img-wrap { height: 220px; }
+  h1 { font-size: 38px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="navin">
+    <div class="brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      TrustLens
+      <span class="badge-olx">
+        <svg viewBox="0 0 75 28" width="38" height="15" style="vertical-align: middle;">
+          <circle cx="14" cy="14" r="11" fill="#002f34"/>
+          <circle cx="14" cy="14" r="5.5" fill="#ffffff"/>
+          <path d="M30 4 h6 v15 h9 v5 H30 Z" fill="#002f34"/>
+          <path d="M50 4 h6 l5 10 5-10 h6 l-8 12 9 12 h-6 l-6-10 -6 10 h-6 l8-12 Z" fill="#23e5db"/>
+        </svg>
+        <span>Research</span>
+      </span>
+    </div>
+    <div class="navlinks">
+      <a href="#story">Why I Built This</a>
+      <a href="#pipeline">System</a>
+      <a href="#gallery">Visual Evidence</a>
+      <a href="#findings">Key Discoveries</a>
+      <a href="#limits">Guardrails</a>
+      <a href="#reports">Full Documentation</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div class="olx-hero-badge">
+    <svg viewBox="0 0 75 28" width="46" height="18" style="vertical-align: middle;">
+      <circle cx="14" cy="14" r="11" fill="#002f34"/>
+      <circle cx="14" cy="14" r="5.5" fill="#ffffff"/>
+      <path d="M30 4 h6 v15 h9 v5 H30 Z" fill="#002f34"/>
+      <path d="M50 4 h6 l5 10 5-10 h6 l-8 12 9 12 h-6 l-6-10 -6 10 h-6 l8-12 Z" fill="#23e5db"/>
+    </svg>
+    <strong>OLX India Empirical Case Study</strong>
+    <span>·</span>
+    <span>2,980 Live Listings</span>
+  </div>
+  <div class="eyebrow">Independent AI/ML Research · Marketplace Trust & Safety</div>
+  <h1>Trust should begin<br>before the payment.</h1>
+  <p class="lead">TrustLens is an empirical research system investigating deceptive patterns, cross-market image reuse, packaging text contradictions, and statistical novelty across 2,980 live OLX India listings.</p>
+  <div class="buttons">
+    <a class="btn dark" href="https://github.com/nandinikhandelwal120603/trustlens">Explore Public Code on GitHub</a>
+    <a class="btn" href="TRUSTLENS_SUPER_MASTER_DOCUMENT.md">Read Super Master Document</a>
+    <a class="btn" href="https://github.com/nandinikhandelwal120603/trustlens-full">Full 120MB Raw Dataset Vault</a>
+  </div>
+</header>
+
+<!-- Personal Origin Story -->
+<div class="story" id="story">
+  <div class="eyebrow">The Origin Story</div>
+  <div class="quote">“I lost ₹23,000 of my hard-earned savings to an OLX scam. What shook me most was how convincing, professional, and ordinary everything looked right up until the money was gone.”</div>
+  <p class="body">Connecting with dozens of victims across Indian subreddits (<code>r/delhi</code>, <code>r/bangalore</code>, <code>r/mumbai</code>), I saw the same heartbreaking cycle repeating every single day: copied device photos, impossible bargain prices, spoofed defense IDs, and urgent pressure to pay advance deposits via UPI.</p>
+  <p class="body">With generative AI and automation rising, deceptive sellers operate nationwide syndicates while everyday consumers are forced to guess who to trust. <strong>Why should the buyer bear the entire burden of finding the truth?</strong> That question inspired TrustLens.</p>
+</div>
+
+<!-- Architecture & Metrics -->
+<section id="pipeline">
+  <div class="eyebrow">The Scope of Investigation</div>
+  <h2 class="section-title">The Complete Research Pipeline (Phases A to K)</h2>
+  <p class="section-sub">TrustLens collects real-world observational data, normalizes products, extracts deep visual and lexical features, and discovers multi-signal corroborated evidence without guessing scam probabilities.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="num">2,980</div><div class="label">Canonical OLX Listings</div></div>
+    <div class="stat"><div class="num">2,280</div><div class="label">Validated Images Evaluated</div></div>
+    <div class="stat"><div class="num">137</div><div class="label">Features per Listing</div></div>
+    <div class="stat"><div class="num">213</div><div class="label">Multi-Signal Corroborated Pairs</div></div>
+  </div>
+
+  <div class="banner-card">
+    <img src="all_graphs_and_images/infographics_and_architecture/trustlens_architecture_and_results.png" alt="TrustLens End-to-End System Architecture and Research Results Slide">
+    <div class="banner-caption">
+      <strong>Executive Research Architecture:</strong> From empirical Reddit complaint taxonomy and client-side OLX capture (Phase A), through product normalization (B), image hashing (C), DINOv2 vision embeddings (D), packaging OCR (E), text NLP (F), dual AI image consensus (G/G.1), and entity graph topology (H), into a 137-column feature store (I), Isolation Forest novelty modeling (J), and final evidence synthesis (K).
+    </div>
+  </div>
+</section>
+
+<!-- Visual Evidence Gallery -->
+<section id="gallery">
+  <div class="eyebrow">Empirical Charts & Plain-English Insights</div>
+  <h2 class="section-title">Visual Evidence Gallery: What the Data Revealed</h2>
+  <p class="section-sub">Every chart below is generated directly from our verified analytical Parquet tables. Here is what each figure actually means in clear, accessible terms.</p>
+
+  <div class="figgrid">
+
+    <!-- Figure 1: Dataset Population Funnel -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/62_dataset_population_funnel.png" alt="TrustLens Dataset Population Funnel">
+      </div>
+      <span class="fig-badge phase-k">Phase A/K · Data Integrity</span>
+      <h3 class="fig-title">1. The Data Quality Funnel</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> How marketplace data moves from raw internet captures down to verified evidence. We captured 2,980 listings across 5 batches, downloaded 2,280 high-quality photos, and cleaned out broken files.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> We didn't cherry-pick. We verified that every single listing has complete, audited data with 0 missing joins and 0 duplicates before doing any analysis.
+      </div>
+      <span class="tiny">Figure 62 · 62_dataset_population_funnel.png</span>
+    </figure>
+
+    <!-- Figure 2: Real Prices vs Deep Discounts -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/06_price_distribution_comparable_models.png" alt="Price Distribution Across Normalized Hardware Models">
+      </div>
+      <span class="fig-badge phase-b">Phase B · Price Baselines</span>
+      <h3 class="fig-title">2. Normal Prices vs. "Too Good To Be True"</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> The price spread for exact models. A genuine second-hand iPhone 13 centers around ₹38,500, but some listings plunge down to ₹8,000.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> Exactly 127 listings were priced 35% or more below normal market rates. While low price alone doesn't prove fraud, an extreme discount is the first red flag to trigger an inspection.
+      </div>
+      <span class="tiny">Figure 06 · 06_price_distribution_comparable_models.png</span>
+    </figure>
+
+    <!-- Figure 3: Photos Recycled Across Indian Cities -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/17_cross_city_visual_relationships_matrix.png" alt="Cross City Visual Relationships Matrix">
+      </div>
+      <span class="fig-badge phase-c">Phase C/D · Copied Photos</span>
+      <h3 class="fig-title">3. The Same Photo in Multiple Cities</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> A matrix tracking where identical or near-identical photos were posted across Indian metro areas (Delhi, Mumbai, Bengaluru, Pune, Hyderabad).</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> 78% of reused images spanned different cities! Why would a seller in Bengaluru and a seller in Delhi use the exact same living room photograph of an iPhone? It's evidence of syndicated templates or stolen pictures.
+      </div>
+      <span class="tiny">Figure 17 · 17_cross_city_visual_relationships_matrix.png</span>
+    </figure>
+
+    <!-- Figure 4: Multimodal Contradictions (Box vs Title) -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/23_inconsistency_categories.png" alt="Categories of Multimodal Inconsistencies">
+      </div>
+      <span class="fig-badge phase-e">Phase E · Packaging OCR</span>
+      <h3 class="fig-title">4. When the Photo Contradicts the Ad</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> The breakdown of 68 discrepancies discovered by our computer-vision text reader (OCR) inspecting boxes and phone screens.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> In one case, the title claimed an "iPhone 13", but the box photo clearly said "iPhone 13 Mini". In another, the screen read "Activation Lock". Computers can spot these lies instantly before a buyer pays.
+      </div>
+      <span class="tiny">Figure 23 · 23_inconsistency_categories.png</span>
+    </figure>
+
+    <!-- Figure 5: The AI Detector Reality Check -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/68_ai_detector_agreement_disagreement.png" alt="Dual AI Detector Agreement and Disagreement">
+      </div>
+      <span class="fig-badge phase-g">Phase G · AI Detector Audit</span>
+      <h3 class="fig-title">5. Why You Can't Trust Just One "AI Detector"</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> We tested two top AI detectors (ViT and Swin) on all 2,280 images. They agreed on 958 real photos, but directly fought with each other on 559 images (nearly 25%)!</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> If a platform bans people based on a single AI image detector, it will wrongfully accuse hundreds of innocent sellers. Multiple detectors and forensic tests must agree.
+      </div>
+      <span class="tiny">Figure 68 · 68_ai_detector_agreement_disagreement.png</span>
+    </figure>
+
+    <!-- Figure 6: Syndicate Networks Across Accounts -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/69_network_relationship_overview.png" alt="Marketplace Network Relationship Overview">
+      </div>
+      <span class="fig-badge phase-h">Phase H · Entity Graphs</span>
+      <h3 class="fig-title">6. Uncovering Syndicated Account Rings</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> A 5,709-node network connecting listings that share identical images, matching phone numbers, or word-for-word descriptions.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> We discovered 266 multi-account clusters. The largest cluster tied together 122 listings across 14 cities using automated marketing templates and recycled photos.
+      </div>
+      <span class="tiny">Figure 69 · 69_network_relationship_overview.png</span>
+    </figure>
+
+    <!-- Figure 7: Statistical Novelty Persistence -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/71_anomaly_persistence.png" alt="Statistical Anomaly Persistence Across Feature Spaces">
+      </div>
+      <span class="fig-badge phase-j">Phase J · Statistical Novelty</span>
+      <h3 class="fig-title">7. The Rarest 3 Listings in the Marketplace</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> Testing which listings stay statistically abnormal when evaluated across price, words, images, and full multimodal features.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> 86.4% of listings looked completely standard. Only 3 listings (0.10%) were weird across all 4 angles—like someone posting an "iPhone 17 Pro" for ₹350, or a full console bundle hidden in a controller search.
+      </div>
+      <span class="tiny">Figure 71 · 71_anomaly_persistence.png</span>
+    </figure>
+
+    <!-- Figure 8: Multi-Signal Evidence Convergence -->
+    <figure class="figure">
+      <div class="figure-img-wrap">
+        <img src="all_graphs_and_images/publication_figures/72_multi_signal_evidence_distribution.png" alt="Multi-Signal Evidence Distribution">
+      </div>
+      <span class="fig-badge phase-k">Phase K · Evidence Convergence</span>
+      <h3 class="fig-title">8. When Multiple Clues Multiply</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> The distribution of 213 listing pairs where at least 2 independent forensic layers confirmed a connection.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> 5 pairs had 4 separate clues pointing to the exact same source (identical photo binary + identical title + shared OCR banner text + deep visual match). That is undeniable proof of duplication.
+      </div>
+      <span class="tiny">Figure 72 · 72_multi_signal_evidence_distribution.png</span>
+    </figure>
+
+    <!-- Figure 9: Geographic Observation Map -->
+    <figure class="figure" style="grid-column: span 2;">
+      <div class="figure-img-wrap" style="height: 380px;">
+        <img src="all_graphs_and_images/publication_figures/73_geographic_observation_map.png" alt="Nationwide Geographic Observation Map">
+      </div>
+      <span class="fig-badge phase-k">Phase K · Geographic Reality</span>
+      <h3 class="fig-title">9. Nationwide Marketplace Observation Footprint</h3>
+      <p class="fig-desc"><strong>What you're looking at:</strong> Mapping all 2,980 captured listings across Indian metro areas and defense cantonments. Delhi NCR, Mumbai, and Bengaluru form the primary trade hubs, but suspicious duplication corridors stretch from Punjab to Tamil Nadu.</p>
+      <div class="fig-takeaway">
+        <strong>Key Takeaway:</strong> Anomaly rates remained remarkably stable at ~5.2% across every major metro city. Deceptive patterns are not confined to a single city—they operate as nationwide digital operations.
+      </div>
+      <span class="tiny">Figure 73 · 73_geographic_observation_map.png</span>
+    </figure>
+
+  </div>
+</section>
+
+<!-- Key Findings Overview -->
+<section id="findings">
+  <div class="eyebrow">The 6 Core Findings</div>
+  <h2 class="section-title">What the Research Proves</h2>
+  <div class="grid2">
+    <div class="finding">
+      <h3>1. Low Price Is Just a Hint</h3>
+      <p>127 listings were 35% below normal. While extreme discounts match victim complaints, genuine reasons (scratched screens, urgent moves) also cause price drops. Price alone is never proof.</p>
+    </div>
+    <div class="finding">
+      <h3>2. Titles Are Mass-Copied</h3>
+      <p>666 listings (22.3%) had word-for-word identical titles. More than 52% used aggressive condition claims like "sealed pack" or "mint condition" to fabricate urgency.</p>
+    </div>
+    <div class="finding">
+      <h3>3. Photos Travel Across India</h3>
+      <p>164 exact duplicate image pairs were detected. 78% were posted in different cities and states, revealing extensive inter-city media reuse across disparate accounts.</p>
+    </div>
+    <div class="finding">
+      <h3>4. Packaging OCR Catches Lies</h3>
+      <p>By extracting text from device boxes and screens, TrustLens found 68 cross-modal contradictions, including a listing advertising an iPhone 13 while the box showed an iPhone 13 Mini.</p>
+    </div>
+    <div class="finding">
+      <h3>5. AI Detectors Need Consensus</h3>
+      <p>Testing two independent vision models revealed a 24.5% disagreement rate. Platforms relying on a single AI detector risk severe false accusations against honest sellers.</p>
+    </div>
+    <div class="finding">
+      <h3>6. Corroborated Multi-Signal Queue</h3>
+      <p>Rather than guessing with linear risk scores, TrustLens prioritized 213 candidate pairs where 2, 3, or 4 independent forensic signals agreed. 5 pairs met on 4 separate forensic layers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Scientific Boundaries -->
+<section id="limits">
+  <div class="eyebrow">Ethical AI & Boundaries</div>
+  <h2 class="section-title">What TrustLens Can — and Cannot — Prove</h2>
+  <p class="section-sub">A core contribution of this research is establishing strict scientific guardrails. We measure observable physical and mathematical evidence, not criminal intent.</p>
+  <div class="boundary">
+    <table>
+      <thead>
+        <tr>
+          <th>Signal Type</th>
+          <th>What TrustLens CAN Establish</th>
+          <th>What TrustLens CANNOT Establish Alone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Price Anomaly</strong></td>
+          <td>Exact mathematical distance from category median.</td>
+          <td>Seller malice, broken hardware, or distress sale intent.</td>
+        </tr>
+        <tr>
+          <td><strong>Binary Image Hash</strong></td>
+          <td>Byte-for-byte SHA-256 equality between files.</td>
+          <td>Image copyright ownership or proof of theft.</td>
+        </tr>
+        <tr>
+          <td><strong>DINOv2 Embeddings</strong></td>
+          <td>High semantic visual similarity in pose and lighting.</td>
+          <td>Proof that two photos depict the same physical device.</td>
+        </tr>
+        <tr>
+          <td><strong>Packaging OCR</strong></td>
+          <td>Legible text visible on retail boxes and phone screens.</td>
+          <td>Physical possession of the depicted item.</td>
+        </tr>
+        <tr>
+          <td><strong>AI Detectors</strong></td>
+          <td>Model-level activations indicating synthetic artifacts.</td>
+          <td>Definitive proof of generative AI synthesis without review.</td>
+        </tr>
+        <tr>
+          <td><strong>Isolation Forest</strong></td>
+          <td>Multivariate statistical distance from the population.</td>
+          <td>A "fraud" classification or scam prediction.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Philosophical Callout -->
+<section>
+  <div class="callout">
+    <div class="eyebrow" style="color: #a0a0a5;">The Core Conclusion</div>
+    <h2 style="font-size: 38px; line-height: 1.1; letter-spacing: -0.04em; margin: 10px 0 16px;">AI does not need to guess “scam” to protect people.</h2>
+    <p>Modern marketplaces don't need another black-box AI score falsely accusing sellers. What platforms need is an evidence-first investigation layer: detecting photo reuse across cities, verifying packaging OCR against titles, flagging off-platform contact redirection, and grouping coordinated account rings.</p>
+    <p style="font-size: 20px; color: #ffffff; margin-top: 20px;"><strong>Trust shouldn't begin with a warning after a victim sends money. It must begin with investigating the listing before it reaches the buyer.</strong></p>
+  </div>
+</section>
+
+<!-- Full Reports & Repositories -->
+<section id="reports">
+  <div class="eyebrow">Explore the Code & Findings</div>
+  <h2 class="section-title">Access Full Research & Datasets</h2>
+  <p class="section-sub">The complete methodology, unit tests, scrapers, and interactive dashboards are open-source and reproducible.</p>
+  <div class="buttons" style="justify-content: flex-start;">
+    <a class="btn dark" href="https://github.com/nandinikhandelwal120603/trustlens">Public Repository (Code & Scrapers)</a>
+    <a class="btn" href="https://github.com/nandinikhandelwal120603/trustlens-full">Full Research Vault (120MB Data & Media)</a>
+    <a class="btn" href="TRUSTLENS_SUPER_MASTER_DOCUMENT.md">Super Master Document (18 Sections)</a>
+    <a class="btn" href="FINAL_TRUSTLENS_RESEARCH_REPORT.md">Final Research Report</a>
+    <a class="btn" href="all_graphs_and_images/interactive_dashboards/final_research_dashboard.html">Interactive Research Dashboard</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <strong>TrustLens Research Initiative</strong> · Engineered by <strong>Nandini Khandelwal</strong><br>
+  Independent Multimodal AI/ML Research · Marketplace Trust & Safety · 124 Passing Unit & Integration Tests<br>
+  Open Source under Apache 2.0 License
+</footer>
+
+</body>
+</html>
