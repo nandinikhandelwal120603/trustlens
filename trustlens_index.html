@@ -74,6 +74,47 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 
+/* OLX Badges & Wordmark */
+.badge-olx {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #002f34;
+  margin-left: 6px;
+}
+.badge-olx span {
+  color: #6e6e73;
+  font-weight: 500;
+}
+.olx-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #002f34;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.olx-hero-badge strong {
+  color: #002f34;
+  letter-spacing: -0.01em;
+}
+.olx-hero-badge span {
+  color: #6e6e73;
+  font-weight: 400;
+}
+
 /* Layout */
 main {
   max-width: var(--max);
@@ -379,6 +420,15 @@ td strong { color: #111; }
     <div class="brand">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       TrustLens
+      <span class="badge-olx">
+        <svg viewBox="0 0 75 28" width="38" height="15" style="vertical-align: middle;">
+          <circle cx="14" cy="14" r="11" fill="#002f34"/>
+          <circle cx="14" cy="14" r="5.5" fill="#ffffff"/>
+          <path d="M30 4 h6 v15 h9 v5 H30 Z" fill="#002f34"/>
+          <path d="M50 4 h6 l5 10 5-10 h6 l-8 12 9 12 h-6 l-6-10 -6 10 h-6 l8-12 Z" fill="#23e5db"/>
+        </svg>
+        <span>Research</span>
+      </span>
     </div>
     <div class="navlinks">
       <a href="#story">Why I Built This</a>
@@ -393,8 +443,18 @@ td strong { color: #111; }
 
 <main>
 
-<!-- Hero Section -->
 <header class="hero">
+  <div class="olx-hero-badge">
+    <svg viewBox="0 0 75 28" width="46" height="18" style="vertical-align: middle;">
+      <circle cx="14" cy="14" r="11" fill="#002f34"/>
+      <circle cx="14" cy="14" r="5.5" fill="#ffffff"/>
+      <path d="M30 4 h6 v15 h9 v5 H30 Z" fill="#002f34"/>
+      <path d="M50 4 h6 l5 10 5-10 h6 l-8 12 9 12 h-6 l-6-10 -6 10 h-6 l8-12 Z" fill="#23e5db"/>
+    </svg>
+    <strong>OLX India Empirical Case Study</strong>
+    <span>·</span>
+    <span>2,980 Live Listings</span>
+  </div>
   <div class="eyebrow">Independent AI/ML Research · Marketplace Trust & Safety</div>
   <h1>Trust should begin<br>before the payment.</h1>
   <p class="lead">TrustLens is an empirical research system investigating deceptive patterns, cross-market image reuse, packaging text contradictions, and statistical novelty across 2,980 live OLX India listings.</p>
@@ -434,11 +494,11 @@ td strong { color: #111; }
   </div>
 </section>
 
-<!-- Visual Evidence Gallery (Layman Terms) -->
+<!-- Visual Evidence Gallery -->
 <section id="gallery">
-  <div class="eyebrow">Empirical Charts & Layman Insights</div>
+  <div class="eyebrow">Empirical Charts & Plain-English Insights</div>
   <h2 class="section-title">Visual Evidence Gallery: What the Data Revealed</h2>
-  <p class="section-sub">Every chart below is generated directly from our verified analytical Parquet tables. Here is what each figure actually means in simple, everyday language.</p>
+  <p class="section-sub">Every chart below is generated directly from our verified analytical Parquet tables. Here is what each figure actually means in clear, accessible terms.</p>
 
   <div class="figgrid">
 
@@ -451,7 +511,7 @@ td strong { color: #111; }
       <h3 class="fig-title">1. The Data Quality Funnel</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> How marketplace data moves from raw internet captures down to verified evidence. We captured 2,980 listings across 5 batches, downloaded 2,280 high-quality photos, and cleaned out broken files.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> We didn't cherry-pick. We verified that every single listing has complete, audited data with 0 missing joins and 0 duplicates before doing any analysis.
+        <strong>Key Takeaway:</strong> We didn't cherry-pick. We verified that every single listing has complete, audited data with 0 missing joins and 0 duplicates before doing any analysis.
       </div>
       <span class="tiny">Figure 62 · 62_dataset_population_funnel.png</span>
     </figure>
@@ -465,7 +525,7 @@ td strong { color: #111; }
       <h3 class="fig-title">2. Normal Prices vs. "Too Good To Be True"</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> The price spread for exact models. A genuine second-hand iPhone 13 centers around ₹38,500, but some listings plunge down to ₹8,000.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> Exactly 127 listings were priced 35% or more below normal market rates. While low price alone doesn't prove fraud, an extreme discount is the first red flag to trigger an inspection.
+        <strong>Key Takeaway:</strong> Exactly 127 listings were priced 35% or more below normal market rates. While low price alone doesn't prove fraud, an extreme discount is the first red flag to trigger an inspection.
       </div>
       <span class="tiny">Figure 06 · 06_price_distribution_comparable_models.png</span>
     </figure>
@@ -479,7 +539,7 @@ td strong { color: #111; }
       <h3 class="fig-title">3. The Same Photo in Multiple Cities</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> A matrix tracking where identical or near-identical photos were posted across Indian metro areas (Delhi, Mumbai, Bengaluru, Pune, Hyderabad).</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> 78% of reused images spanned different cities! Why would a seller in Bengaluru and a seller in Delhi use the exact same living room photograph of an iPhone? It's evidence of syndicated templates or stolen pictures.
+        <strong>Key Takeaway:</strong> 78% of reused images spanned different cities! Why would a seller in Bengaluru and a seller in Delhi use the exact same living room photograph of an iPhone? It's evidence of syndicated templates or stolen pictures.
       </div>
       <span class="tiny">Figure 17 · 17_cross_city_visual_relationships_matrix.png</span>
     </figure>
@@ -493,7 +553,7 @@ td strong { color: #111; }
       <h3 class="fig-title">4. When the Photo Contradicts the Ad</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> The breakdown of 68 discrepancies discovered by our computer-vision text reader (OCR) inspecting boxes and phone screens.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> In one case, the title claimed an "iPhone 13", but the box photo clearly said "iPhone 13 Mini". In another, the screen read "Activation Lock". Computers can spot these lies instantly before a buyer pays.
+        <strong>Key Takeaway:</strong> In one case, the title claimed an "iPhone 13", but the box photo clearly said "iPhone 13 Mini". In another, the screen read "Activation Lock". Computers can spot these lies instantly before a buyer pays.
       </div>
       <span class="tiny">Figure 23 · 23_inconsistency_categories.png</span>
     </figure>
@@ -507,7 +567,7 @@ td strong { color: #111; }
       <h3 class="fig-title">5. Why You Can't Trust Just One "AI Detector"</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> We tested two top AI detectors (ViT and Swin) on all 2,280 images. They agreed on 958 real photos, but directly fought with each other on 559 images (nearly 25%)!</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> If a platform bans people based on a single AI image detector, it will wrongfully accuse hundreds of innocent sellers. Multiple detectors and forensic tests must agree.
+        <strong>Key Takeaway:</strong> If a platform bans people based on a single AI image detector, it will wrongfully accuse hundreds of innocent sellers. Multiple detectors and forensic tests must agree.
       </div>
       <span class="tiny">Figure 68 · 68_ai_detector_agreement_disagreement.png</span>
     </figure>
@@ -521,7 +581,7 @@ td strong { color: #111; }
       <h3 class="fig-title">6. Uncovering Syndicated Account Rings</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> A 5,709-node network connecting listings that share identical images, matching phone numbers, or word-for-word descriptions.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> We discovered 266 multi-account clusters. The largest cluster tied together 122 listings across 14 cities using automated marketing templates and recycled photos.
+        <strong>Key Takeaway:</strong> We discovered 266 multi-account clusters. The largest cluster tied together 122 listings across 14 cities using automated marketing templates and recycled photos.
       </div>
       <span class="tiny">Figure 69 · 69_network_relationship_overview.png</span>
     </figure>
@@ -535,7 +595,7 @@ td strong { color: #111; }
       <h3 class="fig-title">7. The Rarest 3 Listings in the Marketplace</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> Testing which listings stay statistically abnormal when evaluated across price, words, images, and full multimodal features.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> 86.4% of listings looked completely standard. Only 3 listings (0.10%) were weird across all 4 angles—like someone posting an "iPhone 17 Pro" for ₹350, or a full console bundle hidden in a controller search.
+        <strong>Key Takeaway:</strong> 86.4% of listings looked completely standard. Only 3 listings (0.10%) were weird across all 4 angles—like someone posting an "iPhone 17 Pro" for ₹350, or a full console bundle hidden in a controller search.
       </div>
       <span class="tiny">Figure 71 · 71_anomaly_persistence.png</span>
     </figure>
@@ -549,7 +609,7 @@ td strong { color: #111; }
       <h3 class="fig-title">8. When Multiple Clues Multiply</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> The distribution of 213 listing pairs where at least 2 independent forensic layers confirmed a connection.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> 5 pairs had 4 separate clues pointing to the exact same source (identical photo binary + identical title + shared OCR banner text + deep visual match). That is undeniable proof of duplication.
+        <strong>Key Takeaway:</strong> 5 pairs had 4 separate clues pointing to the exact same source (identical photo binary + identical title + shared OCR banner text + deep visual match). That is undeniable proof of duplication.
       </div>
       <span class="tiny">Figure 72 · 72_multi_signal_evidence_distribution.png</span>
     </figure>
@@ -563,7 +623,7 @@ td strong { color: #111; }
       <h3 class="fig-title">9. Nationwide Marketplace Observation Footprint</h3>
       <p class="fig-desc"><strong>What you're looking at:</strong> Mapping all 2,980 captured listings across Indian metro areas and defense cantonments. Delhi NCR, Mumbai, and Bengaluru form the primary trade hubs, but suspicious duplication corridors stretch from Punjab to Tamil Nadu.</p>
       <div class="fig-takeaway">
-        <strong>Layman Takeaway:</strong> Anomaly rates remained remarkably stable at ~5.2% across every major metro city. Deceptive patterns are not confined to a single city—they operate as nationwide digital operations.
+        <strong>Key Takeaway:</strong> Anomaly rates remained remarkably stable at ~5.2% across every major metro city. Deceptive patterns are not confined to a single city—they operate as nationwide digital operations.
       </div>
       <span class="tiny">Figure 73 · 73_geographic_observation_map.png</span>
     </figure>
